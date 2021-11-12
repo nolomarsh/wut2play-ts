@@ -50,9 +50,13 @@ const currentUserSlice = createSlice({
     }
   },
   extraReducers: (builder) => {
-    builder.addCase(attemptLogin.fulfilled, (currentUser, action: PayloadAction<CurrentUserState>) => {
-      return {...action.payload, message: ''}
-    })
+    builder
+      .addCase(attemptLogin.fulfilled, (currentUser, action: PayloadAction<CurrentUserState>) => {
+        return {...action.payload, message: ''}
+      })
+      .addCase(attemptLogin.pending, (currentUser) => {
+        return {...currentUser, message:'Please wait...'}
+      })
   }
 })
 
