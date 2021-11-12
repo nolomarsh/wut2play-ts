@@ -1,0 +1,22 @@
+// General Styling
+* {
+  box-sizing: border-box;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+// Component/Route specific styling
+.TopNav {
+  display: flex;
+  > * {
+    margin: .5rem;
+  }
+
+  .navBtn {
+    @extend a
+  }
+}

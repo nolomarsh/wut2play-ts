@@ -28,6 +28,11 @@ export const attemptLogin = createAsyncThunk(
       .post(url, loginInfo)
       .then(response => {
         console.log(response.data)
+        if (response.data.id !== -1) {
+          localStorage.setItem('currentUser', JSON.stringify(response.data))
+        } else {
+          localStorage.removeItem('currentUser')
+        }
         return response.data
       })
   }
