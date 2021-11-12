@@ -1,15 +1,16 @@
-import { useRef, useState } from 'react'
-import { attemptLogin, setCurrentUser } from '../reducers/currentUserSlice'
-import { useAppDispatch } from '../utils/hooks'
+import { useState } from 'react'
+import { attemptLogin, selectCurrentUser } from '../reducers/currentUserSlice'
+import { useAppDispatch, useAppSelector } from '../utils/hooks'
+
+import FormInput from '../components/FormInput'
 
 const Login = () => {
 
   const dispatch = useAppDispatch()
 
-  const [loginData, setLoginData] = useState({username:'', password:''})
+  const currentUser = useAppSelector(selectCurrentUser)
 
-  const usernameInput = useRef<HTMLInputElement>(null)
-  const passwordInput = useRef<HTMLInputElement>(null)
+  const [loginData, setLoginData] = useState({username:'', password:''})
 
   const handleFormChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setLoginData({...loginData, [event.target.id]: event.target.value})
@@ -18,20 +19,7 @@ const Login = () => {
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     console.log('submitted')
-    // const loginInfo: loginInfo = {
-    //   username: usernameInput.current?.value,
-    //   password: passwordInput.current?.value
-    // }
     dispatch(attemptLogin(loginData))
-  }
-
-  const dummyLogin = () => {
-    dispatch(setCurrentUser({
-      "id": 2,
-      "username": "test",
-      "password": "$2b$10$wqcgvwFj0b7NVm3yvuaqte44tnQ6G/cFAu5egWsAGTlvlpXnKwWMe",
-      "email": "test@email.com"
-  }))
   }
 
   return (
@@ -39,14 +27,14 @@ const Login = () => {
       <form onSubmit={(event)=> handleFormSubmit(event)}>
         <fieldset>
           <legend>Log In</legend>
-          <label htmlFor='username'>Username: </label>
-          <input type='text' ref={usernameInput} id='username' onChange={handleFormChange}/>
-          <label htmlFor='password'>Password: </label>
-          <input type='password' ref={passwordInput} id='password' onChange={handleFormChange}/>
+          <FormInput label='Username' changeHandler={handleFormChange}/>
+          <FormInput label='Password' type='password' changeHandler={handleFormChange}/>
           <input type='submit' value='Log In'/>
         </fieldset>
+        {currentUser.message &&
+          <p>{currentUser.message}</p>
+        }
       </form>
-      <button onClick={dummyLogin}>Dummy Login</button>
     </section>
   )
 }
