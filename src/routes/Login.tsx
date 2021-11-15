@@ -27,8 +27,8 @@ const Login = () => {
       <form onSubmit={(event)=> handleFormSubmit(event)}>
         <fieldset>
           <legend>Log In</legend>
-          <FormInput label='Username' changeHandler={handleFormChange}/>
-          <FormInput label='Password' type='password' changeHandler={handleFormChange}/>
+          <FormInput label="username" changeHandler={handleFormChange}/>
+          <FormInput label='password' changeHandler={handleFormChange}/>
           <input type='submit' value='Log In'/>
         </fieldset>
         {currentUser.message &&

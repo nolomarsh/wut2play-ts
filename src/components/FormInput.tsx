@@ -1,13 +1,19 @@
 import { InputProps } from '../utils/types'
+import { capitalize } from '../utils/functions'
 
 const FormInput: React.FC<InputProps> = (props: InputProps) => {
-  const { type, classes, label, changeHandler } = props
+  let { type, classes, label, changeHandler } = props
+  
+  if (label.toLowerCase() === 'password') {
+    type = 'password'
+  }
 
+  const htmlId = label.toLowerCase().replaceAll(' ','-')
 
   return (
     <>
-      <label htmlFor={label.toLowerCase()}>{label}: </label>
-      <input type={type || 'text'} className={classes && classes.join(' ')} id={label.toLowerCase()} onChange={changeHandler} />
+      <label htmlFor={htmlId}>{capitalize(label)}: </label>
+      <input type={type || 'text'} className={classes && classes.join(' ')} id={htmlId} onChange={changeHandler} />
     </>
   )
 }
