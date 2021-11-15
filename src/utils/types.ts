@@ -3,9 +3,18 @@ export type loginInfo = {
   password: string
 }
 
-export type InputProps = {
+export type InputInfo = {
   label: string
-  changeHandler: (event: React.ChangeEvent<HTMLInputElement>) => void
   type?: string
   classes?: string[]
+  required?: boolean
+}
+
+export type InputProps = InputInfo & {changeHandler: (event: React.ChangeEvent<HTMLInputElement>) => void}
+
+export type FieldsetProps = {
+  legend: string
+  changeHandler: (event: React.ChangeEvent<HTMLInputElement>) => void
+  inputs: (string | InputInfo)[]
+  includeSubmit?: boolean
 }

@@ -18,7 +18,7 @@ ReactDOM.render(
           <Route path='/' element={<App />}>
             <Route path='login' element ={<Login />}/>
             <Route path='profile'>
-              
+
             </Route>
           </Route>
         </Routes>
