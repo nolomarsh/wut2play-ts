@@ -12,9 +12,15 @@ export type InputInfo = {
 
 export type InputProps = InputInfo & {changeHandler: (event: React.ChangeEvent<HTMLInputElement>) => void}
 
-export type FieldsetProps = {
+export type FieldsetInfo = {
   legend: string
-  changeHandler: (event: React.ChangeEvent<HTMLInputElement>) => void
   inputs: (string | InputInfo)[]
   includeSubmit?: boolean
+}
+
+export type FieldsetProps = FieldsetInfo & {changeHandler: (event: React.ChangeEvent<HTMLInputElement>) => void}
+
+export type FormProps = {
+  submitActionCreator: (argument: any) => any
+  fieldsets: FieldsetInfo[]
 }
