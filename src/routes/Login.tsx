@@ -1,4 +1,4 @@
-import DispatchForm from '../components/DispatchForm'
+import BasicForm from '../components/BasicForm'
 import { attemptLogin, selectCurrentUser } from '../reducers/currentUserSlice'
 import { useAppSelector } from '../utils/hooks'
 
@@ -18,9 +18,10 @@ const Login = () => {
 
   return (
     <section className='Login'>
-      <DispatchForm 
-        submitActionCreator={attemptLogin}
-        fieldsets={formFieldsets}
+      <BasicForm 
+        onSubmit={attemptLogin}
+        fields={formFieldsets}
+        doesDispatch={true}
       />
       {currentUser.message &&
         <p>{currentUser.message}</p>

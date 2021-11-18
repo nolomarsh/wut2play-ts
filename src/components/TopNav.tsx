@@ -34,6 +34,7 @@ const TopNav = () => {
           <p className='navBtn' onClick={logOut}>Log Out</p>
         </>
       }
+      <Link to='/lookup' className='navBtn'>Game Lookup</Link>
     </nav>
   )
 }

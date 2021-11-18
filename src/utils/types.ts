@@ -21,6 +21,7 @@ export type FieldsetInfo = {
 export type FieldsetProps = FieldsetInfo & {changeHandler: (event: React.ChangeEvent<HTMLInputElement>) => void}
 
 export type FormProps = {
-  submitActionCreator: (argument: any) => any
-  fieldsets: FieldsetInfo[]
+  onSubmit: (argument: any) => any
+  fields: (FieldsetInfo | InputInfo)[]
+  doesDispatch?: boolean
 }

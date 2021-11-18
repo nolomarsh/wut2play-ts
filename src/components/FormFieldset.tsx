@@ -9,7 +9,7 @@ const FormFieldset: React.FC<FieldsetProps> = (props: FieldsetProps) => {
 
   return (
     <fieldset className={`FormFieldset ${legend.toLowerCase().replace(' ','-')}-field`}>
-      <legend>{capitalize(legend)}</legend>
+      {legend && <legend>{capitalize(legend)}</legend>}
       { inputs.map((input, index) => {
         let label: string, type, classes, required
         if (typeof input !== 'string'){

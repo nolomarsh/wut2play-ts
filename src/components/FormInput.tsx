@@ -11,9 +11,9 @@ const FormInput: React.FC<InputProps> = (props: InputProps) => {
   const htmlId = label.toLowerCase().replaceAll(' ','-')
 
   return (
-    <div className='FormInput'>
+    <div className={classes ? classes.join(' ') + ' FormInput' : 'FormInput'}>
       <label htmlFor={htmlId}>{capitalize(label)}: </label>
-      <input type={type || 'text'} className={classes && classes.join(' ')} id={htmlId} onChange={changeHandler} required={required}/>
+      <input type={type || 'text'} id={htmlId} onChange={changeHandler} required={required}/>
     </div>
   )
 }
