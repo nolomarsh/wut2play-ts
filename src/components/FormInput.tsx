@@ -1,5 +1,7 @@
-import { InputProps } from '../utils/types'
+import { InputInfo } from '../utils/types'
 import { capitalize } from '../utils/functions'
+
+type InputProps = InputInfo & {changeHandler: (event: React.ChangeEvent<HTMLInputElement>) => void}
 
 const FormInput: React.FC<InputProps> = (props: InputProps) => {
   let { type, classes, label, changeHandler, required } = props

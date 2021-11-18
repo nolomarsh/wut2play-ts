@@ -1,8 +1,8 @@
 import FormInput from './FormInput'
 import { capitalize } from '../utils/functions'
-import { FieldsetProps } from '../utils/types'
+import { FieldsetInfo } from '../utils/types'
 
-
+type FieldsetProps = FieldsetInfo & {changeHandler: (event: React.ChangeEvent<HTMLInputElement>) => void}
 
 const FormFieldset: React.FC<FieldsetProps> = (props: FieldsetProps) => {
   const { legend, changeHandler, inputs, includeSubmit } = props

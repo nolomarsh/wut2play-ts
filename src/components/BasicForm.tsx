@@ -1,8 +1,14 @@
 import { useState, FC } from 'react'
 import { useAppDispatch } from '../utils/hooks'
-import { FormProps } from '../utils/types'
+import { FieldsetInfo, InputInfo } from '../utils/types'
 import FormFieldset from './FormFieldset'
 import FormInput from './FormInput'
+
+type FormProps = {
+  onSubmit: (argument: any) => any
+  fields: (FieldsetInfo | InputInfo)[]
+  doesDispatch?: boolean
+}
 
 const DispatchForm: FC<FormProps> = (props: FormProps) => {
   const dispatch = useAppDispatch()
@@ -37,10 +43,9 @@ const DispatchForm: FC<FormProps> = (props: FormProps) => {
             changeHandler={handleFormChange}
             key={index}
           />)
-        }
-        if ('label' in field){
+        } else if ('label' in field){
           const { label, type, classes, required } = field
-          return(
+          return (
             <FormInput 
               label={label}
               type={type}
@@ -50,6 +55,8 @@ const DispatchForm: FC<FormProps> = (props: FormProps) => {
               key={index}
             />
           )
+        } else {
+          return <></>
         }
       })}
     </form>
