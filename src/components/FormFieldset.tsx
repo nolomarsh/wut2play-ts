@@ -10,7 +10,7 @@ const FormFieldset: React.FC<FieldsetProps> = (props: FieldsetProps) => {
   return (
     <fieldset className={`FormFieldset ${legend.toLowerCase().replace(' ','-')}-field`}>
       <legend>{capitalize(legend)}</legend>
-      { inputs.map((input) => {
+      { inputs.map((input, index) => {
         let label: string, type, classes, required
         if (typeof input !== 'string'){
           ({ label, type, classes, required } = input)
@@ -23,6 +23,7 @@ const FormFieldset: React.FC<FieldsetProps> = (props: FieldsetProps) => {
           type={type}
           classes={classes}
           required={required}
+          key={index}
         />)
       })}
       {includeSubmit && 

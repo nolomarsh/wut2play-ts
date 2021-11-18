@@ -21,7 +21,7 @@ const TopNav = () => {
       const foundUser = JSON.parse(storedData)
       dispatch(setCurrentUser(foundUser))
     }
-  },[])
+  },[dispatch])
 
   return (
     <nav className='TopNav'>

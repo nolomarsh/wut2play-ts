@@ -21,13 +21,14 @@ const DispatchForm: FC<FormProps> = (props: FormProps) => {
 
   return (
     <form className='dispatchForm' onSubmit={handleFormSubmit}>
-      {fieldsets.map((fieldset) => {
+      {fieldsets.map((fieldset, index) => {
         const { legend, inputs, includeSubmit } = fieldset;
         return (<FormFieldset 
           legend={legend}
           inputs={inputs}
           includeSubmit={includeSubmit}
           changeHandler={handleFormChange}
+          key={index}
         />)
       })}
     </form>
