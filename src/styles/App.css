@@ -8,11 +8,28 @@ a, .TopNav .navBtn {
   cursor: pointer;
 }
 
+section {
+  padding: 10px;
+}
+
 .TopNav {
   display: flex;
 }
 .TopNav > * {
   margin: 0.5rem;
+}
+.GameCard {
+  display: grid;
+  grid-template-columns: 20% 80%;
+  grid-template-areas: "img content";
+  align-items: center;
+}
+.GameCard img {
+  max-width: 80%;
+  grid-area: img;
+}
+.GameCard .card-content {
+  grid-area: content;
 }
 
 /*# sourceMappingURL=App.css.map */

@@ -9,6 +9,10 @@ a {
   cursor: pointer;
 }
 
+section {
+  padding: 10px;
+}
+
 // Component/Route specific styling
 .TopNav {
   display: flex;
@@ -18,5 +22,21 @@ a {
 
   .navBtn {
     @extend a
+  }
+}
+
+.GameCard{
+  display: grid;
+  grid-template-columns: 20% 80%;
+  grid-template-areas: 'img content';
+  align-items: center;
+
+  img {
+    max-width: 80%;
+    grid-area: img;
+  }
+
+  .card-content {
+    grid-area: content;
   }
 }

@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from '../store'
-import { GameData } from '../utils/types'
+import { GameEntry } from '../utils/types'
 
-const initialState: GameData = {
+const initialState: GameEntry = {
   id: -1,
   name: '',
   image_url: '',
@@ -18,7 +18,7 @@ const selectedGameSlice = createSlice({
   name: 'selectedGame',
   initialState,
   reducers: {
-    setSelectedGame: (selectedGame, action: PayloadAction<GameData>) => {
+    setSelectedGame: (selectedGame, action: PayloadAction<GameEntry>) => {
       return {...action.payload}
     },
     unsetSelectedGame: (selectedGame) => {

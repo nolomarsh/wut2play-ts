@@ -1,8 +1,12 @@
-import { GameData } from '../utils/types'
+import { useNavigate } from 'react-router'
+import { setSelectedGame } from '../reducers/selectedGameSlice'
+import { useAppDispatch } from '../utils/hooks'
+import { GameEntry } from '../utils/types'
 
-type GameCardProps = {game: GameData}
+type GameCardProps = {game: GameEntry}
 
 const GameCard: React.FC<GameCardProps> = (props: GameCardProps) => {
+  const { game } = props
   const { 
     id, 
     name, 
@@ -12,14 +16,26 @@ const GameCard: React.FC<GameCardProps> = (props: GameCardProps) => {
     min_playtime,
     max_playtime, 
     notes, 
-    user_id } = props.game
+    user_id
+  } = game;
+
+  const dispatch = useAppDispatch()
+  const navigate = useNavigate()
   
+  const handleClick = () => {
+    dispatch(setSelectedGame(game))
+    navigate('/profile/add-game')
+  }
+
   return (
     <div className='GameCard'>
-      <img src={image_url} alt={name}/>
-      <p>{name}</p>
-      <p>Players: {min_players}-{max_players}</p>
-      <p>Playtime: {min_playtime}-{max_playtime} minutes</p>
+      <img className='card-img' src={image_url} alt={name}/>
+      <div className='card-content'>
+        <p>{name}</p>
+        <p>Players: {min_players}-{max_players}</p>
+        <p>Playtime: {min_playtime}-{max_playtime} minutes</p>
+        <button onClick={handleClick}>Add Game</button>
+      </div>
     </div>
   )
 }

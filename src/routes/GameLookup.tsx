@@ -1,11 +1,11 @@
 import axios from 'axios'
 import { useState } from 'react'
-import { GameData, BoardGameAtlasGameData } from '../utils/types'
+import { GameEntry, BoardGameAtlasGameData } from '../utils/types'
 
 import BasicForm from '../components/BasicForm'
 import GameCard from '../components/GameCard'
 
-type typedGame = GameData & {type:string}
+type typedGame = GameEntry & {type:string}
 
 const initialFoundGamesState: typedGame[] = [{
   id: -1,
@@ -75,7 +75,6 @@ const GameLookup = () => {
         }
       }))
     })
-
   }
 
   return (

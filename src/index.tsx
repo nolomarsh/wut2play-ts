@@ -10,6 +10,7 @@ import store from './store'
 import App from './App'
 import Login from './routes/Login'
 import GameLookup from './routes/GameLookup'
+import AddGame from './routes/AddGame'
 
 ReactDOM.render(
   <React.StrictMode>
@@ -19,7 +20,7 @@ ReactDOM.render(
           <Route path='/' element={<App />}>
             <Route path='login' element ={<Login />}/>
             <Route path='profile'>
-              
+              <Route path='add-game' element={<AddGame />} />
             </Route>
             <Route path='lookup' element={<GameLookup />}>
 

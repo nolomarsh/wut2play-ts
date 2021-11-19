@@ -17,7 +17,7 @@ export type FieldsetInfo = {
   includeSubmit?: boolean
 }
 
-export type GameData = {
+export type GameEntry = {
   id: number
   name: string
   image_url?: string
