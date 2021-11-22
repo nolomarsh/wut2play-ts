@@ -9,11 +9,12 @@ export type InputInfo = {
   type?: string
   classes?: string[]
   required?: boolean
+  defaultValue?: string | number
 }
 
 export type FieldsetInfo = {
   legend: string
-  inputs: (string | InputInfo)[]
+  inputs: InputInfo[]
   includeSubmit?: boolean
 }
 
@@ -27,6 +28,16 @@ export type GameEntry = {
   max_playtime: number
   notes?: string
   user_id: number
+}
+
+export type StrippedBGAGame = {
+  name: string
+  image_url: string
+  min_players: number
+  max_players: number
+  min_playtime: number
+  max_playtime: number
+  type: string
 }
 
 export type BoardGameAtlasGameData = {

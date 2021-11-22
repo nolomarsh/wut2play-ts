@@ -1,20 +1,17 @@
 import axios from 'axios'
 import { useState } from 'react'
-import { GameEntry, BoardGameAtlasGameData } from '../utils/types'
+import { StrippedBGAGame, BoardGameAtlasGameData } from '../utils/types'
 
 import BasicForm from '../components/BasicForm'
 import GameCard from '../components/GameCard'
 
-type typedGame = GameEntry & {type:string}
-
-const initialFoundGamesState: typedGame[] = [{
-  id: -1,
+const initialFoundGamesState: StrippedBGAGame[] = [{
   name: '',
-  min_players: -1,
-  max_players: -1,
-  min_playtime: -1,
-  max_playtime: -1,
-  user_id: -1,
+  image_url: '',
+  min_players: 0,
+  max_players: 0,
+  min_playtime: 0,
+  max_playtime: 0,
   type: ''
 }]
 
@@ -29,15 +26,15 @@ const GameLookup = () => {
     {
       legend: 'Number of Players',
       inputs: [
-        {label: 'min players', type: 'number'},
-        {label: 'max players', type: 'number'}
+        {label: 'min', name: 'min_players', type: 'number'},
+        {label: 'max', name: 'max_players', type: 'number'}
         ] 
     },
     {
       legend: 'Playtime',
       inputs: [
-        {label: 'Min playtime', type: 'number'},
-        {label: 'Max playtime', type: 'number'}
+        {label: 'min', name: 'min_playtime', type: 'number'},
+        {label: 'max', name: 'max_playtime', type: 'number'}
       ],
       includeSubmit: true
     }
@@ -53,18 +50,16 @@ const GameLookup = () => {
     axios.get(searchUrl).then((response) => {
       const strippedGames = response.data.games.map((game: BoardGameAtlasGameData) => {
         return {
-          id: -1,
           name: game.name,
           image_url: game.image_url,
           min_players: game.min_players,
           max_players: game.max_players,
           min_playtime: game.min_playtime,
           max_playtime: game.max_playtime,
-          user_id: -1,
           type: game.type
         }
       })
-      setFoundGames(strippedGames.filter((game: typedGame) => {
+      setFoundGames(strippedGames.filter((game: StrippedBGAGame) => {
         if (
           (noAccessories && game.type === 'accessory') ||
           (noExpansions && game.type === 'expansions')
@@ -83,7 +78,7 @@ const GameLookup = () => {
         onSubmit={handleSearchSubmit}
         fields={formFields}
       />
-      {foundGames !== initialFoundGamesState && foundGames.map((game, index) => {
+      {(foundGames.length > 1 || foundGames[0].name !== '') && foundGames.map((game, index) => {
        return <GameCard game={game} key={index}/>
       })}
     </section>

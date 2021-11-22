@@ -9,8 +9,8 @@ const Login = () => {
     {
       legend: 'Log In',
       inputs: [
-        {label: 'username', required: true},
-        {label: 'password', required: true}
+        {label: 'username', required: true, defaultValue: ''},
+        {label: 'password', required: true, defaultValue: ''}
       ],
       includeSubmit: true
     },

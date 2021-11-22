@@ -1,29 +1,26 @@
 import { useNavigate } from 'react-router'
 import { setSelectedGame } from '../reducers/selectedGameSlice'
 import { useAppDispatch } from '../utils/hooks'
-import { GameEntry } from '../utils/types'
+import { StrippedBGAGame } from '../utils/types'
 
-type GameCardProps = {game: GameEntry}
+type GameCardProps = {game: StrippedBGAGame}
 
 const GameCard: React.FC<GameCardProps> = (props: GameCardProps) => {
   const { game } = props
   const { 
-    id, 
     name, 
     image_url, 
     min_players, 
     max_players,
     min_playtime,
-    max_playtime, 
-    notes, 
-    user_id
+    max_playtime
   } = game;
 
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   
   const handleClick = () => {
-    dispatch(setSelectedGame(game))
+    // dispatch(setSelectedGame(game))
     navigate('/profile/add-game')
   }
 

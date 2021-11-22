@@ -1,4 +1,4 @@
-import { useState, FC } from 'react'
+import { useState, FC, useEffect } from 'react'
 import { useAppDispatch } from '../utils/hooks'
 import { FieldsetInfo, InputInfo } from '../utils/types'
 import FormFieldset from './FormFieldset'
@@ -10,15 +10,42 @@ type FormProps = {
   doesDispatch?: boolean
 }
 
-const DispatchForm: FC<FormProps> = (props: FormProps) => {
+const BasicForm: FC<FormProps> = (props: FormProps) => {
   const dispatch = useAppDispatch()
-
+ 
   const { onSubmit, fields, doesDispatch } = props
 
-  const [formData, setFormData] = useState({})
+  const addDefaultValue = (inputInfo: InputInfo, accumulator: any) => {
+    let defaultValue
+    if (inputInfo.defaultValue) {
+      defaultValue = inputInfo.defaultValue
+    } else if (inputInfo.type === 'number') {
+      defaultValue = 0
+    } else {
+      defaultValue = ''
+    }
+    return accumulator = {...accumulator, [inputInfo.name || inputInfo.label]: defaultValue}
+  }
 
-  const handleFormChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({...formData, [event.target.id]: event.target.value})
+  const generateInitialState = () => {
+    let initialState = {}
+    for(let field of fields) {
+      if ('label' in field) {
+        initialState = addDefaultValue(field, initialState)
+      } 
+      if ('legend' in field) {
+        for (let input of field.inputs) {
+          initialState = addDefaultValue(input, initialState)
+        }
+      }
+    }
+    return initialState
+  }
+
+  const [formData, setFormData] = useState(generateInitialState())
+
+  const handleFormChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({...formData, [event.target.name]: event.target.value})
   }
 
   const handleFormSubmitWithDispatch = (event: React.FormEvent<HTMLFormElement>) => {
@@ -44,13 +71,9 @@ const DispatchForm: FC<FormProps> = (props: FormProps) => {
             key={index}
           />)
         } else if ('label' in field){
-          const { label, type, classes, required } = field
           return (
             <FormInput 
-              label={label}
-              type={type}
-              classes={classes}
-              required={required}
+              inputInfo={field}
               changeHandler={handleFormChange}
               key={index}
             />
@@ -63,4 +86,4 @@ const DispatchForm: FC<FormProps> = (props: FormProps) => {
   )
 }
 
-export default DispatchForm
+export default BasicForm
