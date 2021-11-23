@@ -1,4 +1,4 @@
-import { useState, FC, useEffect } from 'react'
+import { useState } from 'react'
 import { useAppDispatch } from '../utils/hooks'
 import { FieldsetInfo, InputInfo } from '../utils/types'
 import FormFieldset from './FormFieldset'
@@ -10,7 +10,7 @@ type FormProps = {
   doesDispatch?: boolean
 }
 
-const BasicForm: FC<FormProps> = (props: FormProps) => {
+const BasicForm: React.FC<FormProps> = (props: FormProps) => {
   const dispatch = useAppDispatch()
  
   const { onSubmit, fields, doesDispatch } = props
