@@ -3,6 +3,14 @@ export type loginInfo = {
   password: string
 }
 
+export type User = {
+  id: number
+  username: string
+  password: string
+  email: string
+  message?: string
+}
+
 export type InputInfo = {
   label: string
   name?: string

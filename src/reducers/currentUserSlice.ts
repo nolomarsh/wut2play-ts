@@ -1,17 +1,10 @@
 import { createSlice, PayloadAction, createAsyncThunk } from  '@reduxjs/toolkit'
 import { RootState } from '../store'
-import type { loginInfo } from '../utils/types'
+import type { loginInfo, User } from '../utils/types'
 import axios from 'axios'
+import { fetchGames } from './myGamesSlice'
 
-interface CurrentUserState {
-  id: number
-  username: string
-  password: string
-  email: string
-  message?: string
-}
-
-const initialState: CurrentUserState = {
+const initialState: User = {
   id: -1,
   username: '',
   password: '',
@@ -30,6 +23,7 @@ export const attemptLogin = createAsyncThunk(
         console.log(response.data)
         if (response.data.id !== -1) {
           localStorage.setItem('currentUser', JSON.stringify(response.data))
+          thunkAPI.dispatch(fetchGames(response.data.id))
         } else {
           localStorage.removeItem('currentUser')
         }
@@ -42,7 +36,7 @@ const currentUserSlice = createSlice({
   name: 'currentUser',
   initialState,
   reducers: {
-    setCurrentUser: (currentUser, action: PayloadAction<CurrentUserState>) => {
+    setCurrentUser: (currentUser, action: PayloadAction<User>) => {
       return {...action.payload}
     },
     unsetCurrentUser: (currentUser) => {
@@ -51,7 +45,7 @@ const currentUserSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(attemptLogin.fulfilled, (currentUser, action: PayloadAction<CurrentUserState>) => {
+      .addCase(attemptLogin.fulfilled, (currentUser, action: PayloadAction<User>) => {
         return {...action.payload, message: ''}
       })
       .addCase(attemptLogin.pending, (currentUser) => {

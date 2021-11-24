@@ -11,6 +11,7 @@ import App from './App'
 import Login from './routes/Login'
 import GameLookup from './routes/GameLookup'
 import AddGame from './components/AddGame'
+import Landing from './routes/Landing'
 
 ReactDOM.render(
   <React.StrictMode>
@@ -18,6 +19,7 @@ ReactDOM.render(
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<App />}>
+            <Route index element={<Landing />}/>
             <Route path='login' element ={<Login />}/>
             <Route path='profile'>
               <Route path='add-game' element={<AddGame />} />
