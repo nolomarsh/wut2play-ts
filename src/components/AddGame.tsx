@@ -11,6 +11,10 @@ type AddGameProps = {
   game?: StrippedBGAGame
 }
 
+/**
+ * Renders a form to add a game to the database. 
+ * Requires a user_id to submit correctly, so the form will not render if there isn't a currentUser logged in
+ */
 const AddGame: React.FC<AddGameProps> = (props: AddGameProps) => {
 
   let name, image_url, min_players, max_players, min_playtime, max_playtime, type
@@ -37,13 +41,15 @@ const AddGame: React.FC<AddGameProps> = (props: AddGameProps) => {
   ]
 
   return (
-    <section className='AddGame'>
-      <BasicForm 
-        onSubmit={addGame}
-        fields={formFields}
-        doesDispatch={true}
-      />
-    </section>
+    <div className='AddGame'>
+      {currentUser.id > 0 && 
+        <BasicForm 
+          onSubmit={addGame}
+          fields={formFields}
+          doesDispatch={true}
+        />
+      }
+    </div>
   )
 }
 

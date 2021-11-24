@@ -10,17 +10,31 @@ type FormProps = {
   doesDispatch?: boolean
 }
 
+/**
+ * Generates a form using the provided fieldset/input information
+ * 
+ * props breakdown:
+ * @param {function} onSubmit a function that performs some type of action using the form data
+ * @param {boolean} doesDispatch an optional boolean, mark true if onSubmit is a redux action creator
+ * @param {(FieldsetInfo|InputInfo)[]} fields an array of fieldset and input data used to generate state and populate the form
+ * 
+ */
 const BasicForm: React.FC<FormProps> = (props: FormProps) => {
   const dispatch = useAppDispatch()
  
   const { onSubmit, fields, doesDispatch } = props
 
-  // Programatically generates an appropriate initialState object from the form's inputs
-
+  /** 
+   * Programmatically generates an appropriate initialState object from the form's inputs
+   */ 
   const generateInitialState = () => {
     let initialState = {}
 
-    // A helper function to dry out the loop, checks for a defaultValue and sets that property to the initialState, using an appropriately typed falsey value if no defaultValue is provided
+    /**
+     * A helper function to dry out proceeding loop
+     * @param inputInfo a piece of InputInfo from the 'fields' prop
+     * @returns a modified version of originally empty initialState with a property added corresponding to inputInfo, using an appropriately typed falsey value if no defaultValue is provided
+     */ 
     const addDefaultValue = (inputInfo: InputInfo) => {
       let defaultValue
       if (inputInfo.defaultValue) {

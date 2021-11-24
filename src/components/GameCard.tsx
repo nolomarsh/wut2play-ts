@@ -31,6 +31,10 @@ const GameCard: React.FC<GameCardProps> = (props: GameCardProps) => {
     setShowAddForm(!showAddForm)
   }
 
+  /**
+   * Verifies that there is a user logged in and that they do not have a game with the same name already
+   * @returns a boolean  
+   */
   const checkAddable = () => {
     if (currentUser.id !== -1 && !myGames.some(myGame => myGame.name === name)) {
       return true
