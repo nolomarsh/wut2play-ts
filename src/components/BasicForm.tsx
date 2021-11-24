@@ -15,34 +15,48 @@ const BasicForm: React.FC<FormProps> = (props: FormProps) => {
  
   const { onSubmit, fields, doesDispatch } = props
 
-  const addDefaultValue = (inputInfo: InputInfo, accumulator: any) => {
-    let defaultValue
-    if (inputInfo.defaultValue) {
-      defaultValue = inputInfo.defaultValue
-    } else if (inputInfo.type === 'number') {
-      defaultValue = 0
-    } else {
-      defaultValue = ''
-    }
-    return accumulator = {...accumulator, [inputInfo.name || inputInfo.label]: defaultValue}
-  }
+  // Programatically generates an appropriate initialState object from the form's inputs
 
   const generateInitialState = () => {
     let initialState = {}
+
+    // A helper function to dry out the loop, checks for a defaultValue and sets that property to the initialState, using an appropriately typed falsey value if no defaultValue is provided
+    const addDefaultValue = (inputInfo: InputInfo) => {
+      let defaultValue
+      if (inputInfo.defaultValue) {
+        defaultValue = inputInfo.defaultValue
+      } else if (inputInfo.type === 'number') {
+        defaultValue = 0
+      } else {
+        defaultValue = ''
+      }
+      return initialState = {...initialState, [inputInfo.name || inputInfo.label]: defaultValue}
+    }
+
     for(let field of fields) {
       if ('label' in field) {
-        initialState = addDefaultValue(field, initialState)
+        initialState = addDefaultValue(field)
       } 
       if ('legend' in field) {
         for (let input of field.inputs) {
-          initialState = addDefaultValue(input, initialState)
+          initialState = addDefaultValue(input)
         }
       }
     }
     return initialState
   }
 
+  const checkForSubmit =  () => {
+    for (let field of fields) {
+      if ('legend' in field && field.includeSubmit) {
+        return true
+      }
+    }
+    return false
+  }
+
   const [formData, setFormData] = useState(generateInitialState())
+  const [submitIncluded] = useState(checkForSubmit())
 
   const handleFormChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({...formData, [event.target.name]: event.target.value})
@@ -70,7 +84,8 @@ const BasicForm: React.FC<FormProps> = (props: FormProps) => {
             changeHandler={handleFormChange}
             key={index}
           />)
-        } else if ('label' in field){
+        }
+        if ('label' in field){
           return (
             <FormInput 
               inputInfo={field}
@@ -78,10 +93,11 @@ const BasicForm: React.FC<FormProps> = (props: FormProps) => {
               key={index}
             />
           )
-        } else {
-          return <></>
         }
       })}
+      {!submitIncluded && 
+        <input type='submit'></input>
+      }
     </form>
   )
 }
