@@ -1,7 +1,11 @@
-import { selectCurrentUser } from '../reducers/currentUserSlice'
 import { useAppSelector } from '../utils/hooks'
+
+import { selectCurrentUser } from '../reducers/currentUserSlice'
+import { addGame } from '../reducers/myGamesSlice'
+
 import { StrippedBGAGame, GameEntry } from '../utils/types'
-import BasicForm from '../components/BasicForm'
+
+import BasicForm from './BasicForm'
 
 type AddGameProps = {
   game?: StrippedBGAGame
@@ -15,6 +19,8 @@ const AddGame: React.FC<AddGameProps> = (props: AddGameProps) => {
     ({ name, image_url, min_players, max_players, min_playtime, max_playtime, type } = props.game)
   }
 
+  const currentUser = useAppSelector(selectCurrentUser)
+
   const formFields = [
     {label: 'name', required: true, defaultValue: name},
     {label: 'image url', name: 'image_url', defaultValue: (image_url || '')},
@@ -26,20 +32,16 @@ const AddGame: React.FC<AddGameProps> = (props: AddGameProps) => {
       {label: 'Min', type: 'number', name: 'min_playtime', required: true, defaultValue: (min_playtime || 0)},
       {label: 'max', type: 'number', name: 'max_playtime', required: true, defaultValue: (max_playtime || 0)}
     ]},
-    {label: 'notes', type: 'textarea', defaultValue: ''} 
+    {label: 'notes', type: 'textarea', defaultValue: ''},
+    {label: 'user_id', type: 'hidden', defaultValue: currentUser.id}
   ]
-
-  const currentUser = useAppSelector(selectCurrentUser)
-
-  const addGame = (game: GameEntry) => {
-    console.log(game)
-  }
 
   return (
     <section className='AddGame'>
       <BasicForm 
         onSubmit={addGame}
         fields={formFields}
+        doesDispatch={true}
       />
     </section>
   )

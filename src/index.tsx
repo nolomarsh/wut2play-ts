@@ -10,7 +10,7 @@ import store from './store'
 import App from './App'
 import Login from './routes/Login'
 import GameLookup from './routes/GameLookup'
-import AddGame from './routes/AddGame'
+import AddGame from './components/AddGame'
 
 ReactDOM.render(
   <React.StrictMode>

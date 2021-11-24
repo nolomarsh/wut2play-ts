@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../utils/hooks'
 import { selectCurrentUser, setCurrentUser, unsetCurrentUser } from '../reducers/currentUserSlice'
+import { fetchGames, unsetMyGames } from '../reducers/myGamesSlice'
 
 const TopNav = () => {
   const dispatch = useAppDispatch()
@@ -11,6 +12,7 @@ const TopNav = () => {
 
   const logOut = () => {
     dispatch(unsetCurrentUser())
+    dispatch(unsetMyGames())
     localStorage.removeItem('currentUser')
     navigate('/')
   }
@@ -20,6 +22,7 @@ const TopNav = () => {
     if(storedData){
       const foundUser = JSON.parse(storedData)
       dispatch(setCurrentUser(foundUser))
+      dispatch(fetchGames(foundUser.id))
     }
   },[dispatch])
 

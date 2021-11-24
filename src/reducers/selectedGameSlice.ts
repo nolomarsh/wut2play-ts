@@ -29,6 +29,6 @@ const selectedGameSlice = createSlice({
 
 export const { setSelectedGame, unsetSelectedGame } = selectedGameSlice.actions
 
-export const selectSelectedGame = (state: RootState) => state.selectedGame
+// export const selectSelectedGame = (state: RootState) => state.selectedGame
 
 export default selectedGameSlice.reducer

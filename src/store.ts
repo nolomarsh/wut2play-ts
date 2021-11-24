@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 
 import currentUserReducer from './reducers/currentUserSlice'
-import selectedGameReducer from './reducers/selectedGameSlice'
+import myGamesReducer from './reducers/myGamesSlice'
 
 const allReducers = {
   currentUser: currentUserReducer,
-  selectedGame: selectedGameReducer
+  myGames: myGamesReducer
 }
 
 const store = configureStore({ reducer: allReducers })

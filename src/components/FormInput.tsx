@@ -18,7 +18,9 @@ const FormInput: React.FC<InputProps> = (props: InputProps) => {
 
   return (
     <div className={classes ? classes.join(' ') + ' FormInput' : 'FormInput'}>
-      <label htmlFor={htmlId}>{capitalize(label)}: </label>
+      {type !== 'hidden' &&
+        <label htmlFor={htmlId}>{capitalize(label)}: </label>
+      }
       {type !== 'textarea' ?
         <input type={type || 'text'} id={htmlId} name={name || htmlId} onChange={changeHandler} defaultValue={defaultValue} required={required}/>
         :

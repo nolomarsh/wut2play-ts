@@ -1,10 +1,13 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router'
-import { setSelectedGame } from '../reducers/selectedGameSlice'
-import { useAppDispatch } from '../utils/hooks'
+import { useAppDispatch, useAppSelector } from '../utils/hooks'
+
+import { selectMyGames } from '../reducers/myGamesSlice'
+import { selectCurrentUser } from '../reducers/currentUserSlice'
+
 import { StrippedBGAGame } from '../utils/types'
 
-import AddGame from '../routes/AddGame'
+import AddGame from './AddGame'
 
 type GameCardProps = {game: StrippedBGAGame}
 
@@ -19,10 +22,20 @@ const GameCard: React.FC<GameCardProps> = (props: GameCardProps) => {
     max_playtime
   } = game;
 
+  const myGames = useAppSelector(selectMyGames)
+  const currentUser = useAppSelector(selectCurrentUser)
+
   const [showAddForm, setShowAddForm] = useState(false)
 
   const toggleAddForm = () => {
     setShowAddForm(!showAddForm)
+  }
+
+  const checkAddable = () => {
+    if (currentUser.id !== -1 && !myGames.some(myGame => myGame.name === name)) {
+      return true
+    }
+    return false
   }
 
   return (
@@ -32,7 +45,9 @@ const GameCard: React.FC<GameCardProps> = (props: GameCardProps) => {
         <p>{name}</p>
         <p>Players: {min_players}-{max_players}</p>
         <p>Playtime: {min_playtime}-{max_playtime} minutes</p>
-        <button onClick={toggleAddForm}>Add Game</button>
+        {checkAddable() &&
+          <button onClick={toggleAddForm}>Add Game</button>
+        }
       </div>
       {showAddForm && 
         <AddGame game={game}/>
