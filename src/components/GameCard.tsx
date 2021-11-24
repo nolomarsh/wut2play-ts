@@ -1,7 +1,10 @@
+import { useState } from 'react'
 import { useNavigate } from 'react-router'
 import { setSelectedGame } from '../reducers/selectedGameSlice'
 import { useAppDispatch } from '../utils/hooks'
 import { StrippedBGAGame } from '../utils/types'
+
+import AddGame from '../routes/AddGame'
 
 type GameCardProps = {game: StrippedBGAGame}
 
@@ -16,12 +19,10 @@ const GameCard: React.FC<GameCardProps> = (props: GameCardProps) => {
     max_playtime
   } = game;
 
-  const dispatch = useAppDispatch()
-  const navigate = useNavigate()
-  
-  const handleClick = () => {
-    // dispatch(setSelectedGame(game))
-    navigate('/profile/add-game')
+  const [showAddForm, setShowAddForm] = useState(false)
+
+  const toggleAddForm = () => {
+    setShowAddForm(!showAddForm)
   }
 
   return (
@@ -31,8 +32,11 @@ const GameCard: React.FC<GameCardProps> = (props: GameCardProps) => {
         <p>{name}</p>
         <p>Players: {min_players}-{max_players}</p>
         <p>Playtime: {min_playtime}-{max_playtime} minutes</p>
-        <button onClick={handleClick}>Add Game</button>
+        <button onClick={toggleAddForm}>Add Game</button>
       </div>
+      {showAddForm && 
+        <AddGame game={game}/>
+      }
     </div>
   )
 }

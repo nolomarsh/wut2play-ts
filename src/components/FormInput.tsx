@@ -22,7 +22,7 @@ const FormInput: React.FC<InputProps> = (props: InputProps) => {
       {type !== 'textarea' ?
         <input type={type || 'text'} id={htmlId} name={name || htmlId} onChange={changeHandler} defaultValue={defaultValue} required={required}/>
         :
-        <textarea id={htmlId} name={name || htmlId} onChange={changeHandler} required={required}>{defaultValue}</textarea>
+        <textarea id={htmlId} name={name || htmlId} onChange={changeHandler} defaultValue={defaultValue} required={required}></textarea>
       }
       
     </div>
