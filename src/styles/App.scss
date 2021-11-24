@@ -1,0 +1,46 @@
+// General Styling
+* {
+  box-sizing: border-box;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+section {
+  padding: 10px;
+}
+
+// Component/Route specific styling
+.TopNav {
+  display: flex;
+  > * {
+    margin: .5rem;
+  }
+
+  .navBtn {
+    @extend a
+  }
+}
+
+.GameCard{
+  display: grid;
+  grid-template-columns: 20% 50% 30%;
+  grid-template-areas: 'img content form';
+  align-items: center;
+
+  img {
+    max-width: 80%;
+    grid-area: img;
+  }
+
+  .card-content {
+    grid-area: content;
+  }
+
+  form {
+    grid-area: form;
+  }
+}
