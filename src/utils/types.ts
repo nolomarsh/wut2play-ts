@@ -3,13 +3,16 @@ export type loginInfo = {
   password: string
 }
 
-export type User = {
-  id: number
-  username: string
-  password: string
-  email: string
-  message?: string
-}
+export type SignUpInfo = loginInfo & {email: string}
+
+export type User = SignUpInfo & {id: number, message?: string}
+// {
+//   id: number
+//   username: string
+//   password: string
+//   email: string
+//   message?: string
+// }
 
 export type InputInfo = {
   label: string

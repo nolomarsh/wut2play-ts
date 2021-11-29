@@ -30,7 +30,10 @@ const TopNav = () => {
     <nav className='TopNav'>
       <Link className='navBtn logo' to='/'>Wut2Play</Link>
       {currentUser.id === -1 ?
-        <Link to='/login'>Log In</Link>
+        <>
+          <Link to='/login'>Log In</Link>
+          <Link to='/signup'>Sign Up</Link>
+        </>
         :
         <>
           <p>Hello, <Link to='/profile' className='navBtn'>{currentUser.username}</Link></p>
