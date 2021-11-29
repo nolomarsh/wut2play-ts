@@ -9,6 +9,7 @@ import store from './store'
 
 import App from './App'
 import Login from './routes/Login'
+import SignUp from './routes/SignUp'
 import GameLookup from './routes/GameLookup'
 import AddGame from './components/AddGame'
 import Landing from './routes/Landing'
@@ -21,6 +22,7 @@ ReactDOM.render(
           <Route path='/' element={<App />}>
             <Route index element={<Landing />}/>
             <Route path='login' element ={<Login />}/>
+            <Route path='signup' element={<SignUp />}/>
             <Route path='profile'>
               <Route path='add-game' element={<AddGame />} />
             </Route>

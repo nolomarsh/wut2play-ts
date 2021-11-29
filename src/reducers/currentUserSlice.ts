@@ -1,8 +1,10 @@
 import { createSlice, PayloadAction, createAsyncThunk } from  '@reduxjs/toolkit'
 import { RootState } from '../store'
-import type { loginInfo, User } from '../utils/types'
+import type { loginInfo, SignUpInfo, User } from '../utils/types'
 import axios from 'axios'
 import { fetchGames } from './myGamesSlice'
+
+import { apiUrl } from '../utils/variables'
 
 const initialState: User = {
   id: -1,
@@ -10,13 +12,12 @@ const initialState: User = {
   password: '',
   email: '',
   message: '',
-} 
-// as CurrentUserState
+}
 
 export const attemptLogin = createAsyncThunk(
   'currentUser/attemptLogin',
   async (loginInfo: loginInfo, thunkAPI) => {
-    const url = 'https://wut2play-api.herokuapp.com/users/login'
+    const url = apiUrl + 'users/login'
     return axios
       .post(url, loginInfo)
       .then(response => {
@@ -32,6 +33,23 @@ export const attemptLogin = createAsyncThunk(
   }
 )
 
+export const signUp = createAsyncThunk(
+  'currentUser/signUp',
+  async (signupInfo: SignUpInfo, thunkAPI) => {
+    const url = apiUrl + 'users/newuser'
+    return axios
+      .post(url, signupInfo)
+      // .catch((error) => {
+      //   console.log(error)
+      //   throw thunkAPI.rejectWithValue(`Server error. Please try again later.`)
+      // })
+      .then((response) => {
+        thunkAPI.dispatch(setCurrentUser(response.data))
+      })
+      
+  }
+)
+
 const currentUserSlice = createSlice({
   name: 'currentUser',
   initialState,
@@ -41,6 +59,9 @@ const currentUserSlice = createSlice({
     },
     unsetCurrentUser: (currentUser) => {
       return initialState
+    },
+    setMessage: (currentUser, action: PayloadAction<string>) => {
+      return {...currentUser, message: action.payload}
     }
   },
   extraReducers: (builder) => {
@@ -51,10 +72,13 @@ const currentUserSlice = createSlice({
       .addCase(attemptLogin.pending, (currentUser) => {
         return {...currentUser, message:'Please wait...'}
       })
+      .addCase(signUp.rejected, (currentUser, action: PayloadAction<any>) => {
+        return {...initialState, message: action.payload}
+      })
   }
 })
 
-export const { setCurrentUser, unsetCurrentUser } = currentUserSlice.actions
+export const { setCurrentUser, unsetCurrentUser, setMessage } = currentUserSlice.actions
 
 export const selectCurrentUser = (state: RootState) => state.currentUser
 
