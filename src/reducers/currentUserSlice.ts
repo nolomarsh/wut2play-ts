@@ -11,6 +11,8 @@ const initialState: User = {
   username: '',
   password: '',
   email: '',
+  request_ids: [],
+  friend_ids: [],
   message: '',
 }
 
