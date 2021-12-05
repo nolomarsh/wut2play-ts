@@ -5,14 +5,12 @@ export type loginInfo = {
 
 export type SignUpInfo = loginInfo & {email: string}
 
-export type User = SignUpInfo & {id: number, message?: string}
-// {
-//   id: number
-//   username: string
-//   password: string
-//   email: string
-//   message?: string
-// }
+export type User = SignUpInfo & {
+  id: number, 
+  request_ids: number[],
+  friend_ids: number[],
+  message?: string
+}
 
 export type InputInfo = {
   label: string
