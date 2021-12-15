@@ -1,15 +1,15 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router'
-import { useAppDispatch, useAppSelector } from '../utils/hooks'
+// import { useNavigate } from 'react-router'
+import { useAppSelector } from '../utils/hooks'
 
 import { selectMyGames } from '../reducers/myGamesSlice'
 import { selectCurrentUser } from '../reducers/currentUserSlice'
 
-import { StrippedBGAGame } from '../utils/types'
+import { GameEntry } from '../utils/types'
 
 import AddGame from './AddGame'
 
-type GameCardProps = {game: StrippedBGAGame}
+type GameCardProps = {game: GameEntry}
 
 const GameCard: React.FC<GameCardProps> = (props: GameCardProps) => {
   const { game } = props

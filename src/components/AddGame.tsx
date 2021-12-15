@@ -3,12 +3,12 @@ import { useAppSelector } from '../utils/hooks'
 import { selectCurrentUser } from '../reducers/currentUserSlice'
 import { addGame } from '../reducers/myGamesSlice'
 
-import { StrippedBGAGame, GameEntry } from '../utils/types'
+import { GameEntry } from '../utils/types'
 
 import BasicForm from './BasicForm'
 
 type AddGameProps = {
-  game?: StrippedBGAGame
+  game?: GameEntry
 }
 
 /**
@@ -17,10 +17,10 @@ type AddGameProps = {
  */
 const AddGame: React.FC<AddGameProps> = (props: AddGameProps) => {
 
-  let name, image_url, min_players, max_players, min_playtime, max_playtime, type
+  let name, image_url, min_players, max_players, min_playtime, max_playtime
   
   if (props.game) {
-    ({ name, image_url, min_players, max_players, min_playtime, max_playtime, type } = props.game)
+    ({ name, image_url, min_players, max_players, min_playtime, max_playtime } = props.game)
   }
 
   const currentUser = useAppSelector(selectCurrentUser)

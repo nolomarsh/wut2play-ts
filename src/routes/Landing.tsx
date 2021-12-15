@@ -1,4 +1,4 @@
-import { useAppDispatch, useAppSelector } from '../utils/hooks'
+import { useAppSelector } from '../utils/hooks'
 
 import { selectCurrentUser } from '../reducers/currentUserSlice'
 import { selectMyGames } from '../reducers/myGamesSlice'

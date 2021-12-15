@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit'
 import { RootState } from '../store'
-import { GameEntry, User } from '../utils/types'
+import { GameEntry } from '../utils/types'
 import { apiUrl } from '../utils/variables'
 import axios from 'axios'
 
@@ -35,7 +35,7 @@ export const fetchGames = createAsyncThunk(
     return axios
       .get(url)
       .then(response => {
-        console.log('fetch data: ', response.data)
+        // console.log('fetch data: ', response.data)
         return response.data
       })
   }

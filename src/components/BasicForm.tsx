@@ -98,8 +98,7 @@ const BasicForm: React.FC<FormProps> = (props: FormProps) => {
             changeHandler={handleFormChange}
             key={index}
           />)
-        }
-        if ('label' in field){
+        } else if ('label' in field){
           return (
             <FormInput 
               inputInfo={field}
@@ -107,6 +106,8 @@ const BasicForm: React.FC<FormProps> = (props: FormProps) => {
               key={index}
             />
           )
+        } else {
+          return (<></>)
         }
       })}
       {!submitIncluded && 

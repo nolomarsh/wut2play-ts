@@ -1,25 +1,27 @@
 import axios from 'axios'
 import { useState } from 'react'
-import { StrippedBGAGame, BoardGameAtlasGameData } from '../utils/types'
+import { BoardGameAtlasGameData, GameEntry } from '../utils/types'
 
 import BasicForm from '../components/BasicForm'
 import GameCard from '../components/GameCard'
 
-const initialFoundGamesState: StrippedBGAGame[] = [{
+const initialFoundGamesState: GameEntry[] = [{
+  id: -1,
   name: '',
   image_url: '',
   min_players: 0,
   max_players: 0,
   min_playtime: 0,
   max_playtime: 0,
-  type: ''
+  type: '',
+  user_id: -1
 }]
 
 const GameLookup = () => {
 
   const [foundGames, setFoundGames] = useState(initialFoundGamesState)
-  const [noAccessories, setNoAccessories] = useState(true)
-  const [noExpansions, setNoExpansions] = useState(true)
+  const [noAccessories] = useState(true)
+  const [noExpansions] = useState(true)
 
   const formFields = [
     {label: 'name'},
@@ -50,16 +52,18 @@ const GameLookup = () => {
     axios.get(searchUrl).then((response) => {
       const strippedGames = response.data.games.map((game: BoardGameAtlasGameData) => {
         return {
+          id: game.id,
           name: game.name,
           image_url: game.image_url,
           min_players: game.min_players,
           max_players: game.max_players,
           min_playtime: game.min_playtime,
           max_playtime: game.max_playtime,
-          type: game.type
+          type: game.type,
+          user_id: -1
         }
       })
-      setFoundGames(strippedGames.filter((game: StrippedBGAGame) => {
+      setFoundGames(strippedGames.filter((game: GameEntry) => {
         if (
           (noAccessories && game.type === 'accessory') ||
           (noExpansions && game.type === 'expansions')
@@ -78,8 +82,8 @@ const GameLookup = () => {
         onSubmit={handleSearchSubmit}
         fields={formFields}
       />
-      {(foundGames.length > 1 || foundGames[0].name !== '') && foundGames.map((game, index) => {
-       return <GameCard game={game} key={index}/>
+      {(foundGames.length > 1 || foundGames[0].name !== '') && foundGames.map((game) => {
+       return <GameCard game={game} key={game.id}/>
       })}
     </section>
   )
