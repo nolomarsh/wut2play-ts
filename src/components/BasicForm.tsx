@@ -8,6 +8,7 @@ type FormProps = {
   onSubmit: (argument: any) => any
   fields: (FieldsetInfo | InputInfo)[]
   doesDispatch?: boolean
+  submitSideEffects?: ((arg?: any) => any)[]
 }
 
 /**
@@ -22,7 +23,7 @@ type FormProps = {
 const BasicForm: React.FC<FormProps> = (props: FormProps) => {
   const dispatch = useAppDispatch()
  
-  const { onSubmit, fields, doesDispatch } = props
+  const { onSubmit, fields, doesDispatch, submitSideEffects} = props
 
   /** 
    * Programmatically generates an appropriate initialState object from the form's inputs
@@ -78,11 +79,21 @@ const BasicForm: React.FC<FormProps> = (props: FormProps) => {
 
   const handleFormSubmitWithDispatch = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    if(submitSideEffects) {
+      for (let fn of submitSideEffects) {
+        fn(formData)
+      }
+    }
     dispatch(onSubmit(formData))
   }
 
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    if(submitSideEffects) {
+      for (let fn of submitSideEffects) {
+        fn(formData)
+      }
+    }
     onSubmit(formData)
   }
 
