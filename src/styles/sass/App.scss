@@ -1,17 +1,4 @@
-// General Styling
-* {
-  box-sizing: border-box;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-section {
-  padding: 10px;
-}
+@use 'general';
 
 // Component/Route specific styling
 .TopNav {
