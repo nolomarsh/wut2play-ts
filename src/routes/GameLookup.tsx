@@ -20,6 +20,7 @@ const initialFoundGamesState: GameEntry[] = [{
 const GameLookup = () => {
 
   const [foundGames, setFoundGames] = useState(initialFoundGamesState)
+  const [showNoneFound, setShowNoneFound] = useState(false)
   const [noAccessories] = useState(true)
   const [noExpansions] = useState(true)
 
@@ -50,7 +51,8 @@ const GameLookup = () => {
       }
     }
     axios.get(searchUrl).then((response) => {
-      const strippedGames = response.data.games.map((game: BoardGameAtlasGameData) => {
+      const { games } = response.data
+      const strippedGames = games.map((game: BoardGameAtlasGameData) => {
         return {
           id: game.id,
           name: game.name,
@@ -63,16 +65,23 @@ const GameLookup = () => {
           user_id: -1
         }
       })
-      setFoundGames(strippedGames.filter((game: GameEntry) => {
+      const filteredGames = strippedGames.filter((game: GameEntry) => {
         if (
           (noAccessories && game.type === 'accessory') ||
-          (noExpansions && game.type === 'expansions')
+          (noExpansions && game.type === 'expansion')
         ) {
           return false
         } else {
           return true
         }
-      }))
+      })
+      if (filteredGames.length > 0) {
+        setFoundGames(filteredGames)
+        setShowNoneFound(false)
+      } else {
+        setFoundGames(initialFoundGamesState)
+        setShowNoneFound(true)
+      }
     })
   }
 
@@ -85,6 +94,9 @@ const GameLookup = () => {
       {(foundGames.length > 1 || foundGames[0].name !== '') && foundGames.map((game) => {
        return <GameCard game={game} key={game.id}/>
       })}
+      {showNoneFound && 
+        <p>No matching games were found! Sorry!</p>
+      }
     </section>
   )
 }
