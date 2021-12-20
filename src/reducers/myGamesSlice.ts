@@ -3,6 +3,7 @@ import { RootState } from '../store'
 import { GameEntry } from '../utils/types'
 import { apiUrl } from '../utils/variables'
 import axios from 'axios'
+import currentUserSlice from './currentUserSlice'
 
 const initialState: GameEntry[] = [{
   id: -1,
@@ -41,6 +42,18 @@ export const fetchGames = createAsyncThunk(
   }
 )
 
+export const removeGame = createAsyncThunk(
+  'myGames/removeGame',
+  async (info:{gameId: number, userId: number}, thunkAPI) => {
+    const url = apiUrl + `games/${info.gameId}`
+    return axios
+      .delete(url, {data: {user_id: info.userId}})
+      .then(response => {
+        return response.data
+      })
+  }
+)
+
 const myGamesSlice = createSlice({
   name: 'myGames',
   initialState,
@@ -59,6 +72,10 @@ const myGamesSlice = createSlice({
       })
       .addCase(fetchGames.fulfilled, (myGames, action: PayloadAction<GameEntry[]>) => {
         return [...action.payload]
+      })
+      .addCase(removeGame.fulfilled, (myGames, action: PayloadAction<GameEntry[]>) => {
+        return [...action.payload] 
+        // console.log(action.payload)
       })
   }
 })
