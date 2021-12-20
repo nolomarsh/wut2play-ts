@@ -1,4 +1,4 @@
-import './styles/App.css'
+import './styles/css/App.css'
 
 import { Outlet } from 'react-router'
 import TopNav from './components/TopNav'
