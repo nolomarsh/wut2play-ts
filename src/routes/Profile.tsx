@@ -10,6 +10,7 @@ const Profile = () => {
 
   return (
     <section>
+      <h1>My Games</h1>
       {myGames.map((game) => {
         return (
           <GameCard game={game} key={game.id}/>
