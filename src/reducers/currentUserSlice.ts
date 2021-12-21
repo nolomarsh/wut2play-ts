@@ -4,7 +4,7 @@ import type { loginInfo, SignUpInfo, User } from '../utils/types'
 import axios from 'axios'
 import { fetchGames } from './myGamesSlice'
 
-import { apiUrl } from '../utils/variables'
+import { apiUrl } from '../utils/url'
 
 export const initialUser: User = {
   id: -1,

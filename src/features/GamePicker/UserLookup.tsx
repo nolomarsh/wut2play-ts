@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { initialUser, selectCurrentUser } from '../../reducers/currentUserSlice'
 import { useAppSelector } from '../../utils/hooks'
 import { User } from '../../utils/types'
-import { apiUrl } from '../../utils/variables'
+import { apiUrl } from '../../utils/url'
 
 type UserLookupProps = {
   pooledUsers: User[]
