@@ -1,13 +1,11 @@
 import { useState } from 'react'
-import { initialGame, selectMyGames } from '../../reducers/myGamesSlice'
+import { selectMyGames } from '../../reducers/myGamesSlice'
 import { useAppSelector } from '../../utils/hooks'
 import { User } from '../../utils/types'
 
 import UserLookup from './UserLookup'
 import { initialUser, selectCurrentUser } from '../../reducers/currentUserSlice'
-import FormInput from '../../components/FormInput'
-import axios from 'axios'
-import { apiUrl } from '../../utils/variables'
+import PickerPage from './PickerPage'
 
 const GamePicker = () => {
 
@@ -21,23 +19,30 @@ const GamePicker = () => {
     step 4: pick game 
   */
   const [stepNumber, setStepNumber] = useState(0)
-  const lastStep = () => {
-    setStepNumber(stepNumber - 1)
-  }
-  const nextStep = () => {
-    setStepNumber(stepNumber + 1)
-  }
-
   const [queryStats, setQueryStats] = useState({numPlayers: 0, playtime: 0})
+  const [pooledUsers, setPooledUsers] = useState([initialUser])
+
   const statInputs = [
     {label:`How long do you want to play?`, name:'playtime'},
     {label:`How big is your group?`, name:'numPlayers'}
   ]
-  const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement|HTMLTextAreaElement>) => {
-    setQueryStats({...queryStats, [e.target.id]: e.target.value})
+
+  const previousStep = () => {
+    setStepNumber(stepNumber - 1)
   }
 
-  const [pooledUsers, setPooledUsers] = useState([initialUser])
+  const nextStep = () => {
+    setStepNumber(stepNumber + 1)
+  }
+  
+  const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement|HTMLTextAreaElement>) => {
+    if (e.target.value === '' || parseInt(e.target.value) < 0){
+      setQueryStats({...queryStats, [e.target.name]: 0})
+    } else {
+      setQueryStats({...queryStats, [e.target.name]: parseInt(e.target.value)})
+    }
+  }
+  
   const togglePooledUser = (inUser: User) => {
     //user is already in pool, so remove
     if(pooledUsers.some(user => user.id === inUser.id)){
@@ -54,24 +59,6 @@ const GamePicker = () => {
       }
     }
   }
-
-  const [pickedGame, setPickedGame] = useState(initialGame)
-  const pickRandomGame = () => {
-    const idsArray = pooledUsers.map(user => user.id).concat(currentUser.id)
-    const url = apiUrl + 'games/get_game_pool'
-    const reqBody = {
-      user_ids: idsArray,
-      playtime: queryStats.playtime,
-      num_players: queryStats.numPlayers
-    }
-    axios
-      .post(url, reqBody)
-      .then((response) => {
-        const gamePool = response.data
-        const randomGame = gamePool[Math.floor(Math.random() * gamePool.length)]
-        setPickedGame(randomGame)
-      })
-  }
   
   return(
     <div>
@@ -80,33 +67,50 @@ const GamePicker = () => {
           <h1>Wut2Play</h1>
         </>
       }
-      {stepNumber === 1 && 
-        <FormInput inputInfo={statInputs[0]} changeHandler={inputChangeHandler}/>
+      {stepNumber === 1 &&
+        <div>
+          <label htmlFor='numPlayers'>How Big Is Your Group? </label>
+          <input id='numPlayers' name='numPlayers' type='number' min='0' defaultValue={queryStats.numPlayers} onChange={inputChangeHandler}/>
+        </div>
       }
-      {stepNumber === 2 &&
-        <FormInput inputInfo={statInputs[1]} changeHandler={inputChangeHandler}/>
-      }
-      {stepNumber === 3 && 
+      {stepNumber === 2 && 
         <UserLookup 
           pooledUsers={pooledUsers}
           togglePooledUser={togglePooledUser}
         />
       }
+      {stepNumber === 3 && 
+        // <FormInput inputInfo={statInputs[0]} changeHandler={inputChangeHandler}/>
+        <div>
+          <label htmlFor='playtime'>How Long Do You Want To Play?</label>
+          <div>
+            <input id='playtime' name='playtime' type='number' min='0' defaultValue={queryStats.playtime} onChange={inputChangeHandler}/>
+            <span> Minutes</span>
+          </div>
+        </div>
+      }
       {stepNumber === 4 &&
-        <>
-          <p>{pickedGame.name}</p>
-          <button onClick={pickRandomGame}>Pick game</button>
-        </>
+        <PickerPage 
+          pooledUsers={pooledUsers}
+          currentUser={currentUser}
+          queryStats={queryStats}
+        />
       }
       <div className='btnBox'>
         {stepNumber > 0 && 
-          <button onClick={lastStep}>Back</button>
+          <button onClick={previousStep}>Back</button>
         }
-        {stepNumber === 3 &&
+        {stepNumber === 0 &&
+          <button onClick={nextStep}>Get Started!</button>
+        }
+        {stepNumber === 1 && 
+          <button onClick={nextStep}>Next</button>
+        }
+        {stepNumber === 2 &&
           <button onClick={nextStep}>{pooledUsers[0].id < 1 ? 'Nope!' : `That's everyone!`}</button>
         }
-        {stepNumber < 3 && 
-          <button onClick={nextStep}>Next</button>
+        {stepNumber === 3 &&
+          <button onClick={nextStep}>{queryStats.playtime === 0 ? 'No Preference!' : `Let's go!`}</button>
         }
       </div>
     </div>
