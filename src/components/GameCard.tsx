@@ -1,19 +1,20 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router'
-import { useAppDispatch, useAppSelector } from '../utils/hooks'
+// import { useNavigate } from 'react-router'
+import { useAppSelector, useAppDispatch } from '../utils/hooks'
 
-import { selectMyGames } from '../reducers/myGamesSlice'
+import { selectMyGames, removeGame } from '../reducers/myGamesSlice'
 import { selectCurrentUser } from '../reducers/currentUserSlice'
 
-import { StrippedBGAGame } from '../utils/types'
+import { GameEntry } from '../utils/types'
 
 import AddGame from './AddGame'
 
-type GameCardProps = {game: StrippedBGAGame}
+type GameCardProps = {game: GameEntry}
 
 const GameCard: React.FC<GameCardProps> = (props: GameCardProps) => {
   const { game } = props
   const { 
+    id,
     name, 
     image_url, 
     min_players, 
@@ -24,6 +25,7 @@ const GameCard: React.FC<GameCardProps> = (props: GameCardProps) => {
 
   const myGames = useAppSelector(selectMyGames)
   const currentUser = useAppSelector(selectCurrentUser)
+  const dispatch = useAppDispatch()
 
   const [showAddForm, setShowAddForm] = useState(false)
 
@@ -42,6 +44,15 @@ const GameCard: React.FC<GameCardProps> = (props: GameCardProps) => {
     return false
   }
 
+  const removeHandler = () => {
+    let axiosInfo = {
+      gameId: id,
+      userId: currentUser.id
+    }
+    // console.log(axiosInfo)
+    dispatch(removeGame(axiosInfo))
+  }
+
   return (
     <div className='GameCard'>
       <img className='card-img' src={image_url} alt={name}/>
@@ -52,9 +63,13 @@ const GameCard: React.FC<GameCardProps> = (props: GameCardProps) => {
         {checkAddable() &&
           <button onClick={toggleAddForm}>Add Game</button>
         }
+        {myGames.some(myGame => myGame.name === name) &&
+        typeof id !== 'string' &&
+          <button onClick={removeHandler}>Remove Game</button>
+        }
       </div>
       {showAddForm && 
-        <AddGame game={game}/>
+        <AddGame game={game} toggler={toggleAddForm} />
       }
     </div>
   )

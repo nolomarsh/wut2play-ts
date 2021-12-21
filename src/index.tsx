@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import './styles/index.css'
+import './styles/css/index.css'
 import reportWebVitals from './reportWebVitals'
 
 import { Provider } from 'react-redux'
@@ -10,6 +10,7 @@ import store from './store'
 import App from './App'
 import Login from './routes/Login'
 import SignUp from './routes/SignUp'
+import Profile from './routes/Profile'
 import GameLookup from './routes/GameLookup'
 import AddGame from './components/AddGame'
 import Landing from './routes/Landing'
@@ -23,7 +24,7 @@ ReactDOM.render(
             <Route index element={<Landing />}/>
             <Route path='login' element ={<Login />}/>
             <Route path='signup' element={<SignUp />}/>
-            <Route path='profile'>
+            <Route path='profile' element={<Profile />}>
               <Route path='add-game' element={<AddGame />} />
             </Route>
             <Route path='lookup' element={<GameLookup />}>

@@ -8,6 +8,10 @@ a, .TopNav .navBtn {
   cursor: pointer;
 }
 
+ul {
+  list-style-type: none;
+}
+
 section {
   padding: 10px;
 }

@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit'
 import { RootState } from '../store'
-import { GameEntry, User } from '../utils/types'
+import { GameEntry } from '../utils/types'
 import { apiUrl } from '../utils/variables'
 import axios from 'axios'
 
-const initialState: GameEntry[] = [{
+export const initialGame: GameEntry = {
   id: -1,
   name: '',
   image_url: '',
@@ -14,7 +14,9 @@ const initialState: GameEntry[] = [{
   max_playtime: -1,
   notes: '',
   user_id: -1
-}]
+}
+
+const initialState = [initialGame]
 
 export const addGame = createAsyncThunk(
   'myGames/addGame',
@@ -35,7 +37,19 @@ export const fetchGames = createAsyncThunk(
     return axios
       .get(url)
       .then(response => {
-        console.log('fetch data: ', response.data)
+        // console.log('fetch data: ', response.data)
+        return response.data
+      })
+  }
+)
+
+export const removeGame = createAsyncThunk(
+  'myGames/removeGame',
+  async (info:{gameId: number, userId: number}, thunkAPI) => {
+    const url = apiUrl + `games/${info.gameId}`
+    return axios
+      .delete(url, {data: {user_id: info.userId}})
+      .then(response => {
         return response.data
       })
   }
@@ -59,6 +73,10 @@ const myGamesSlice = createSlice({
       })
       .addCase(fetchGames.fulfilled, (myGames, action: PayloadAction<GameEntry[]>) => {
         return [...action.payload]
+      })
+      .addCase(removeGame.fulfilled, (myGames, action: PayloadAction<GameEntry[]>) => {
+        return [...action.payload] 
+        // console.log(action.payload)
       })
   }
 })

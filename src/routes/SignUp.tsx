@@ -25,7 +25,6 @@ const SignUp = () => {
       email: ''
     }
   )
-  const [signUpError, setSignUpError] = useState('')
 
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setSignUpData({...signUpData, [e.target.name || e.target.id]: e.target.value})

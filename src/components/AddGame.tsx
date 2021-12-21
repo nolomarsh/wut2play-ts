@@ -3,24 +3,25 @@ import { useAppSelector } from '../utils/hooks'
 import { selectCurrentUser } from '../reducers/currentUserSlice'
 import { addGame } from '../reducers/myGamesSlice'
 
-import { StrippedBGAGame, GameEntry } from '../utils/types'
+import { GameEntry } from '../utils/types'
 
 import BasicForm from './BasicForm'
 
 type AddGameProps = {
-  game?: StrippedBGAGame
+  game?: GameEntry,
+  toggler?: () => void
 }
 
 /**
  * Renders a form to add a game to the database. 
  * Requires a user_id to submit correctly, so the form will not render if there isn't a currentUser logged in
  */
-const AddGame: React.FC<AddGameProps> = (props: AddGameProps) => {
+const AddGame: React.FC<AddGameProps> = ({game, toggler}) => {
 
-  let name, image_url, min_players, max_players, min_playtime, max_playtime, type
+  let name, image_url, min_players, max_players, min_playtime, max_playtime
   
-  if (props.game) {
-    ({ name, image_url, min_players, max_players, min_playtime, max_playtime, type } = props.game)
+  if (game) {
+    ({ name, image_url, min_players, max_players, min_playtime, max_playtime } = game)
   }
 
   const currentUser = useAppSelector(selectCurrentUser)
@@ -43,11 +44,17 @@ const AddGame: React.FC<AddGameProps> = (props: AddGameProps) => {
   return (
     <div className='AddGame'>
       {currentUser.id > 0 && 
-        <BasicForm 
-          onSubmit={addGame}
-          fields={formFields}
-          doesDispatch={true}
-        />
+        <>
+          {toggler && 
+            <div onClick={toggler}>X</div>
+          }
+          <BasicForm 
+            onSubmit={addGame}
+            fields={formFields}
+            doesDispatch={true}
+            submitSideEffects={toggler ? [toggler] : undefined}
+          />
+        </>
       }
     </div>
   )

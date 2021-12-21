@@ -36,17 +36,8 @@ export type GameEntry = {
   min_playtime: number
   max_playtime: number
   notes?: string
+  type?: string
   user_id: number
-}
-
-export type StrippedBGAGame = {
-  name: string
-  image_url: string
-  min_players: number
-  max_players: number
-  min_playtime: number
-  max_playtime: number
-  type: string
 }
 
 export type BoardGameAtlasGameData = {

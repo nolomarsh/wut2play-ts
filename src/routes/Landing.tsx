@@ -1,12 +1,10 @@
-import { useAppDispatch, useAppSelector } from '../utils/hooks'
+import { useAppSelector } from '../utils/hooks'
 
 import { selectCurrentUser } from '../reducers/currentUserSlice'
-import { selectMyGames } from '../reducers/myGamesSlice'
-import GamePicker from '../components/GamePicker'
+import GamePicker from '../features/GamePicker/GamePicker'
 
 const Landing = () => {
   const currentUser = useAppSelector(selectCurrentUser)
-  const myGames = useAppSelector(selectMyGames)
 
   return (
     <section className='Landing'>
@@ -16,11 +14,9 @@ const Landing = () => {
       </>
       :
       <>
-        <h1>Hello {currentUser.username}</h1>
         <GamePicker />
       </>
       }
-      <p>{myGames.length}</p>
     </section>
   )
 }
