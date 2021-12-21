@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { selectMyGames } from '../../reducers/myGamesSlice'
 import { useAppSelector } from '../../utils/hooks'
 import { User } from '../../utils/types'
 
@@ -9,7 +8,6 @@ import PickerPage from './PickerPage'
 
 const GamePicker = () => {
 
-  const myGames = useAppSelector(selectMyGames)
   const currentUser = useAppSelector(selectCurrentUser)
   /*
     step 0: start
@@ -21,11 +19,6 @@ const GamePicker = () => {
   const [stepNumber, setStepNumber] = useState(0)
   const [queryStats, setQueryStats] = useState({numPlayers: 0, playtime: 0})
   const [pooledUsers, setPooledUsers] = useState([initialUser])
-
-  const statInputs = [
-    {label:`How long do you want to play?`, name:'playtime'},
-    {label:`How big is your group?`, name:'numPlayers'}
-  ]
 
   const previousStep = () => {
     setStepNumber(stepNumber - 1)
