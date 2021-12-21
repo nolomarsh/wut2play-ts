@@ -2,7 +2,7 @@ import { useState } from 'react'
 import axios from 'axios'
 import { initialGame } from '../../reducers/myGamesSlice'
 import { GameEntry, User } from '../../utils/types'
-import { apiUrl } from '../../utils/variables'
+import { apiUrl } from '../../utils/url'
 
 type PickerProps = {
   pooledUsers: User[]

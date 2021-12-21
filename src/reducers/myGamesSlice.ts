@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit'
 import { RootState } from '../store'
 import { GameEntry } from '../utils/types'
-import { apiUrl } from '../utils/variables'
+import { apiUrl } from '../utils/url'
 import axios from 'axios'
 
 export const initialGame: GameEntry = {
