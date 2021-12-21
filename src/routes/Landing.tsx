@@ -2,7 +2,7 @@ import { useAppSelector } from '../utils/hooks'
 
 import { selectCurrentUser } from '../reducers/currentUserSlice'
 import { selectMyGames } from '../reducers/myGamesSlice'
-import GamePicker from '../components/GamePicker'
+import GamePicker from '../features/GamePicker/GamePicker'
 
 const Landing = () => {
   const currentUser = useAppSelector(selectCurrentUser)
@@ -20,7 +20,6 @@ const Landing = () => {
         <GamePicker />
       </>
       }
-      <p>{myGames.length}</p>
     </section>
   )
 }
