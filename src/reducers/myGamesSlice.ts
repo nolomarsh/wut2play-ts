@@ -3,9 +3,8 @@ import { RootState } from '../store'
 import { GameEntry } from '../utils/types'
 import { apiUrl } from '../utils/variables'
 import axios from 'axios'
-import currentUserSlice from './currentUserSlice'
 
-const initialState: GameEntry[] = [{
+export const initialGame: GameEntry = {
   id: -1,
   name: '',
   image_url: '',
@@ -15,7 +14,9 @@ const initialState: GameEntry[] = [{
   max_playtime: -1,
   notes: '',
   user_id: -1
-}]
+}
+
+const initialState = [initialGame]
 
 export const addGame = createAsyncThunk(
   'myGames/addGame',

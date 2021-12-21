@@ -6,7 +6,7 @@ import { fetchGames } from './myGamesSlice'
 
 import { apiUrl } from '../utils/variables'
 
-const initialState: User = {
+export const initialUser: User = {
   id: -1,
   username: '',
   password: '',
@@ -15,6 +15,8 @@ const initialState: User = {
   friend_ids: [],
   message: '',
 }
+
+const initialState = initialUser
 
 export const attemptLogin = createAsyncThunk(
   'currentUser/attemptLogin',
