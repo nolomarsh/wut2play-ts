@@ -5,6 +5,7 @@ import { User } from '../../utils/types'
 import UserLookup from './UserLookup'
 import { initialUser, selectCurrentUser } from '../../reducers/currentUserSlice'
 import PickerPage from './PickerPage'
+import GroupSizePage from './GroupSizePage'
 
 const GamePicker = () => {
 
@@ -17,7 +18,7 @@ const GamePicker = () => {
     step 4: pick game 
   */
   const [stepNumber, setStepNumber] = useState(0)
-  const [queryStats, setQueryStats] = useState({numPlayers: 0, playtime: 0})
+  const [queryStats, setQueryStats] = useState({numPlayers: 1, playtime: 0})
   const [pooledUsers, setPooledUsers] = useState([initialUser])
 
   const previousStep = () => {
@@ -26,6 +27,10 @@ const GamePicker = () => {
 
   const nextStep = () => {
     setStepNumber(stepNumber + 1)
+  }
+
+  const setNumPlayers = (num: number) => {
+    setQueryStats({...queryStats, numPlayers: num})
   }
   
   const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement|HTMLTextAreaElement>) => {
@@ -54,17 +59,17 @@ const GamePicker = () => {
   }
   
   return(
-    <div>
+    <div className={`picker picker-page-${stepNumber}`}>
       {stepNumber === 0 && 
         <>
           <h1>Wut2Play</h1>
         </>
       }
       {stepNumber === 1 &&
-        <div>
-          <label htmlFor='numPlayers'>How Big Is Your Group? </label>
-          <input id='numPlayers' name='numPlayers' type='number' min='0' defaultValue={queryStats.numPlayers} onChange={inputChangeHandler}/>
-        </div>
+        <GroupSizePage
+          numPlayers={queryStats.numPlayers}
+          setNumPlayers={setNumPlayers}
+        />
       }
       {stepNumber === 2 && 
         <UserLookup 
@@ -74,13 +79,14 @@ const GamePicker = () => {
       }
       {stepNumber === 3 && 
         // <FormInput inputInfo={statInputs[0]} changeHandler={inputChangeHandler}/>
-        <div>
-          <label htmlFor='playtime'>How Long Do You Want To Play?</label>
-          <div>
-            <input id='playtime' name='playtime' type='number' min='0' defaultValue={queryStats.playtime} onChange={inputChangeHandler}/>
+        <>
+          <h1>How Long Do You Want To Play?</h1>
+          <label htmlFor='playtime' hidden>How Long Do You Want To Play?</label>
+          <div className='input-with-span'>
+            <input className='small-input' id='playtime' name='playtime' type='number' min='0' defaultValue={queryStats.playtime} onChange={inputChangeHandler}/>
             <span> Minutes</span>
           </div>
-        </div>
+        </>
       }
       {stepNumber === 4 &&
         <PickerPage 

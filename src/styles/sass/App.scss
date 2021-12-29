@@ -1,23 +1,21 @@
-@use 'general';
+@use 'utils/fonts';
+
+@use 'base/reset';
+@use 'base/general';
+
+@use 'layout/grid';
+@use 'layout/navbar'; 
+
+@use 'components/picker';
 
 // Component/Route specific styling
-.TopNav {
-  display: flex;
-  > * {
-    margin: .5rem;
-  }
-
-  .navBtn {
-    @extend a
-  }
-}
 
 .GameCard{
   display: grid;
   grid-template-columns: 20% 50% 30%;
   grid-template-areas: 'img content form';
   align-items: center;
-
+  
   img {
     max-width: 80%;
     grid-area: img;

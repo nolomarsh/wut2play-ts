@@ -1,0 +1,21 @@
+$white: #dff1fa;
+$light-blue: #8ecae6;
+$medium-blue: #219ebc;
+$navy: #023047;
+$black: #012435;
+$goldenrod: #ffb703;
+$orange: #fb8500;
+
+// Functional color exports
+$primary-background: $navy;
+$primary-font-color: $goldenrod;
+$primary-fill: $goldenrod;
+$primary-accent: $orange;
+$secondary-fill: $light-blue;
+$secondary-accent: $medium-blue;
+
+// Media query breakpoint exports
+$small-breakpoint: 600px;
+$medium-breakpoint: 768px;
+$large-breakpoint: 992px;
+$xl-breakpoint: 1200px;

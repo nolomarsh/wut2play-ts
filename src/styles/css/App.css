@@ -1,27 +1,236 @@
+@font-face {
+  font-family: "Playful World";
+  src: url("../fonts/PlayfulWorld/PlayfulWorldRegular.eot");
+  src: url("../fonts/PlayfulWorld/PlayfulWorldRegular.eot?#iefix") format("embedded-opentype"), url("../fonts/PlayfulWorld/PlayfulWorldRegular.woff2") format("woff2"), url("../fonts/PlayfulWorld/PlayfulWorldRegular.woff") format("woff"), url("../fonts/PlayfulWorld/PlayfulWorldRegular.ttf") format("truetype"), url("../fonts/PlayfulWorld/PlayfulWorldRegular.svg#PlayfulWorldRegular") format("svg");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
 * {
   box-sizing: border-box;
 }
 
-a, .TopNav .navBtn {
+body {
+  background-color: #023047;
+  color: #ffb703;
+  font-family: "Playful World";
+}
+
+a {
   color: inherit;
   text-decoration: none;
   cursor: pointer;
-}
-
-ul {
-  list-style-type: none;
 }
 
 section {
   padding: 10px;
 }
 
-.TopNav {
+.btnBox {
   display: flex;
+  justify-content: center;
 }
-.TopNav > * {
-  margin: 0.5rem;
+.btnBox > * {
+  margin: 0 0.5rem;
 }
+
+#root {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: [screen-top] 90% [row1-end] 10% [screen-bottom];
+  grid-template-columns: [screen-left] 100% [screen-right];
+  grid-template-areas: "main" "navBar";
+}
+
+main {
+  grid-area: main;
+}
+
+@media screen and (min-width: 992px) {
+  #root {
+    grid-template-rows: [screen-top] 10% [row1-end] 90% [screen-bottom];
+    grid-template-areas: "navBar" "main";
+  }
+}
+nav {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  grid-row: navBar;
+}
+
+.navBtn {
+  margin: 0.5rem 0;
+  font-size: 2rem;
+}
+
+@media screen and (min-width: 992px) {
+  nav {
+    justify-content: flex-start;
+  }
+}
+.Landing {
+  width: 100%;
+  height: 100%;
+}
+
+.picker {
+  width: 100%;
+  height: 100%;
+  border: 5px dashed #fb8500;
+  border-radius: 5px;
+  padding: 0.5rem;
+  display: grid;
+  grid-template-rows: 40% 40% 10% 10%;
+  grid-template-areas: "title" "input" "btnBox" ".";
+  place-items: center;
+}
+.picker h1 {
+  font-size: 5rem;
+  text-align: center;
+  grid-area: title;
+}
+.picker input {
+  grid-area: input;
+  background-color: inherit;
+  padding: 0.5rem;
+  border: none;
+  border-bottom: 3px solid #ffb703;
+  font-size: 2rem;
+  text-align: center;
+  color: #ffb703;
+}
+.picker .btnBox {
+  grid-area: btnBox;
+}
+.picker button {
+  font-size: 2rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 10px;
+  background-color: #ffb703;
+  border: 1px solid #fb8500;
+  color: #023047;
+  font-family: "Playful World";
+}
+
+.user-list {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.found-users {
+  grid-area: found-users;
+}
+
+.stored-users {
+  grid-area: stored-users;
+}
+
+.small-input {
+  width: 5rem;
+}
+
+.input-with-span {
+  grid-area: input;
+  display: flex;
+  justify-content: center;
+}
+.input-with-span span {
+  font-size: 2rem;
+  margin-left: 0.5rem;
+  align-self: flex-end;
+}
+
+.input-box {
+  width: 60%;
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+  grid-template-areas: "decrementer num-players incrementer";
+  place-items: center;
+  font-size: 3rem;
+}
+
+.decrementer {
+  grid-area: decrementer;
+}
+
+.num-players {
+  grid-area: num-players;
+  font-size: 4rem;
+}
+
+.incrementer {
+  grid-area: incrementer;
+}
+
+.picker-page-2 {
+  grid-template-rows: 20% 45% 15% 10% 10%;
+  grid-template-columns: 50% 50%;
+  grid-template-areas: "title title" "found-users stored-users" "input input" "btnBox btnBox" ". .";
+}
+.picker-page-2 h3 {
+  font-size: 2rem;
+  border-bottom: 1px solid #fb8500;
+  margin-bottom: 0.5rem;
+}
+.picker-page-2 li {
+  font-size: 1.5rem;
+}
+
 .GameCard {
   display: grid;
   grid-template-columns: 20% 50% 30%;

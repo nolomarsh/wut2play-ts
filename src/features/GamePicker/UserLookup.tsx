@@ -34,7 +34,7 @@ const UserLookup = ({ pooledUsers, togglePooledUser }: UserLookupProps) => {
         .post(url, {username: e.target.value})
         .then((response) => {
           const filteredUsers = response.data.filter(filterFoundUsers)
-          console.log(filteredUsers)
+          // console.log(filteredUsers)
           if(filteredUsers.length > 0) {
             setFoundUsers(filteredUsers)
           } else {
@@ -53,32 +53,37 @@ const UserLookup = ({ pooledUsers, togglePooledUser }: UserLookupProps) => {
   }
 
   return (
-    <div className='lookup'>
+    <>
         <h1>Anyone we know?</h1>
-        <ul>
+        <div className='user-list stored-users'>
+          <h3>Here's Who You've Chosen</h3>
+          <ul>
           {pooledUsers[0].id > 0 && pooledUsers.map((user) => {
             return (
               <li key={user.id}>
-                {user.username}
-                <button onClick={()=>togglePooledUser(user)}>X</button>
+                {user.username} - 
+                <span onClick={()=>togglePooledUser(user)}> ✘</span>
               </li>
             )
           })}
         </ul>
-        <label htmlFor='username'>Username: </label>
+        </div>
+        <label htmlFor='username' hidden>Username: </label>
         <input id='username' value={queryString} onChange={lookupUsers}/>
-        
-        <ul>
+        <div className='user-list found-users'>
+          <h3>Here's Who We Found</h3>
+          <ul>
           {foundUsers[0].id > 0 && foundUsers.filter(filterFoundUsers).map((user) => {
             return (
               <li key={user.id}>
-                {user.username} 
-                <button onClick={()=>handleClickClearSearch(user)}>Add</button>
+                {user.username} - 
+                <span onClick={()=>handleClickClearSearch(user)}> ✓</span>
               </li>
             )
           })}
         </ul>
-      </div>
+        </div>
+      </>
   )
 }
 
