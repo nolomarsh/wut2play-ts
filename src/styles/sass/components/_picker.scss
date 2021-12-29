@@ -83,6 +83,28 @@
   }
 }
 
+.input-box {
+  width: 60%;
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+  grid-template-areas: 'decrementer num-players incrementer';
+  place-items: center;
+  font-size: 3rem;
+}
+
+.decrementer {
+  grid-area: decrementer;
+}
+
+.num-players {
+  grid-area: num-players;
+  font-size: 4rem;
+}
+
+.incrementer {
+  grid-area: incrementer;
+}
+
 .picker-page-2{
   grid-template-rows: 20% 45% 15% 10% 10%;
   grid-template-columns: 50% 50%;
