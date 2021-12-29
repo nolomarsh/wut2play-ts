@@ -1,0 +1,27 @@
+@use '../utils/vars' as *;
+
+#root {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: [screen-top] 90% [row1-end] 10% [screen-bottom];
+  grid-template-columns: [screen-left] 100% [screen-right];
+  grid-template-areas: 
+    "main" 
+    "navBar"
+  ;
+}
+
+main {
+  grid-area: main;
+}
+
+@media screen and (min-width: $large-breakpoint) {
+  #root {
+    grid-template-rows: [screen-top] 10% [row1-end] 90% [screen-bottom];
+    grid-template-areas:
+      "navBar"
+      "main"
+    ;
+  }
+}

@@ -54,17 +54,18 @@ const GamePicker = () => {
   }
   
   return(
-    <div>
+    <div className={`picker picker-page-${stepNumber}`}>
       {stepNumber === 0 && 
         <>
           <h1>Wut2Play</h1>
         </>
       }
       {stepNumber === 1 &&
-        <div>
-          <label htmlFor='numPlayers'>How Big Is Your Group? </label>
-          <input id='numPlayers' name='numPlayers' type='number' min='0' defaultValue={queryStats.numPlayers} onChange={inputChangeHandler}/>
-        </div>
+        <>
+          <h1>How Big Is Your Group?</h1>
+          <label htmlFor='numPlayers' hidden>How Big Is Your Group? </label>
+          <input className='small-input' id='numPlayers' name='numPlayers' type='number' min='0' defaultValue={queryStats.numPlayers} onChange={inputChangeHandler}/>
+        </>
       }
       {stepNumber === 2 && 
         <UserLookup 
@@ -74,13 +75,14 @@ const GamePicker = () => {
       }
       {stepNumber === 3 && 
         // <FormInput inputInfo={statInputs[0]} changeHandler={inputChangeHandler}/>
-        <div>
-          <label htmlFor='playtime'>How Long Do You Want To Play?</label>
-          <div>
-            <input id='playtime' name='playtime' type='number' min='0' defaultValue={queryStats.playtime} onChange={inputChangeHandler}/>
+        <>
+          <h1>How Long Do You Want To Play?</h1>
+          <label htmlFor='playtime' hidden>How Long Do You Want To Play?</label>
+          <div className='input-with-span'>
+            <input className='small-input' id='playtime' name='playtime' type='number' min='0' defaultValue={queryStats.playtime} onChange={inputChangeHandler}/>
             <span> Minutes</span>
           </div>
-        </div>
+        </>
       }
       {stepNumber === 4 &&
         <PickerPage 

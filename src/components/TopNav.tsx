@@ -31,8 +31,8 @@ const TopNav = () => {
       <Link className='navBtn logo' to='/'>Wut2Play</Link>
       {currentUser.id === -1 ?
         <>
-          <Link to='/login'>Log In</Link>
-          <Link to='/signup'>Sign Up</Link>
+          <Link to='/login' className='navBtn'>Log In</Link>
+          <Link to='/signup' className='navBtn'>Sign Up</Link>
         </>
         :
         <>
