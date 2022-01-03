@@ -8,11 +8,11 @@ import { selectCurrentUser } from '../reducers/currentUserSlice'
 import { GameEntry } from '../utils/types'
 
 import AddGame from './AddGame'
+import GameForm from './GameForm'
 
 type GameCardProps = {game: GameEntry}
 
-const GameCard: React.FC<GameCardProps> = (props: GameCardProps) => {
-  const { game } = props
+const GameCard: React.FC<GameCardProps> = ({game}: GameCardProps) => {
   const { 
     id,
     name, 
@@ -20,17 +20,18 @@ const GameCard: React.FC<GameCardProps> = (props: GameCardProps) => {
     min_players, 
     max_players,
     min_playtime,
-    max_playtime
+    max_playtime,
+    user_id
   } = game;
 
   const myGames = useAppSelector(selectMyGames)
   const currentUser = useAppSelector(selectCurrentUser)
   const dispatch = useAppDispatch()
 
-  const [showAddForm, setShowAddForm] = useState(false)
+  const [showForm, setShowForm] = useState(false)
 
-  const toggleAddForm = () => {
-    setShowAddForm(!showAddForm)
+  const toggleForm = () => {
+    setShowForm(!showForm)
   }
 
   /**
@@ -38,39 +39,41 @@ const GameCard: React.FC<GameCardProps> = (props: GameCardProps) => {
    * @returns a boolean  
    */
   const checkAddable = () => {
-    if (currentUser.id !== -1 && !myGames.some(myGame => myGame.name === name)) {
+    if (currentUser.id !== -1 || !myGames.some(myGame => myGame.name === name)) {
       return true
     }
     return false
   }
 
-  const removeHandler = () => {
-    let axiosInfo = {
-      gameId: id,
-      userId: currentUser.id
+  const canAddOrEdit = () => {
+    if (myGames.some(myGame => myGame.name === name) && game.user_id !== currentUser.id) {
+      return false
+    } else {
+      return true
     }
-    // console.log(axiosInfo)
-    dispatch(removeGame(axiosInfo))
   }
 
   return (
     <div className='game-card'>
       <img className='card-img' src={image_url} alt={name}/>
       <div className='card-content'>
-        <p>{name}</p>
-        <p>Players: {min_players}-{max_players}</p>
-        <p>Playtime: {min_playtime}-{max_playtime} minutes</p>
-        {checkAddable() &&
-          <button onClick={toggleAddForm}>Add Game</button>
+        {!showForm && 
+          <>
+            <p>{name}</p>
+            <p>Players: {min_players}-{max_players}</p>
+            <p>Playtime: {min_playtime}-{max_playtime} minutes</p>
+            <button onClick={toggleForm} disabled={!canAddOrEdit()}>{game.user_id !== currentUser.id ? 'Add Game' : 'Edit Game'}</button>
+          </>
         }
-        {myGames.some(myGame => myGame.name === name) &&
-        typeof id !== 'string' &&
-          <button onClick={removeHandler}>Remove Game</button>
+        {showForm && 
+          // <AddGame game={game} toggler={toggleAddForm} />
+          <GameForm 
+            game={game} 
+            toggler={toggleForm} 
+            currentUser={currentUser}
+          />
         }
       </div>
-      {showAddForm && 
-        <AddGame game={game} toggler={toggleAddForm} />
-      }
     </div>
   )
 }

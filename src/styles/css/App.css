@@ -80,11 +80,6 @@ body {
   color: #ffb703;
   font-family: "Fun Time";
 }
-@media screen and (min-width: 992px) {
-  body {
-    padding: 0;
-  }
-}
 
 a {
   color: inherit;
@@ -93,6 +88,8 @@ a {
 }
 
 section {
+  height: 100%;
+  width: 100%;
   padding: 10px;
   display: flex;
   flex-direction: column;
@@ -107,6 +104,37 @@ section {
   margin: 0 0.5rem;
 }
 
+.hidden {
+  display: none;
+}
+
+h1 {
+  font-size: 3rem;
+}
+
+h2 {
+  font-size: 2.5rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+form .input-with-label {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+label {
+  font-size: 1.5rem;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
 #root {
   width: 100vw;
   height: 100vh;
@@ -117,24 +145,18 @@ section {
   grid-template-areas: "main" "navBar";
 }
 
-main {
-  grid-area: main;
-  height: 100%;
-  width: 100%;
-}
-
 @media screen and (min-width: 992px) {
   #root {
     grid-template-rows: [screen-top] 7% [row1-end] 93% [screen-bottom];
     grid-template-areas: "navBar" "main";
   }
 }
-nav {
+#main-nav {
   width: 100%;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  grid-row: navBar;
+  grid-area: navBar;
 }
 
 .navBtn {
@@ -151,15 +173,15 @@ nav {
     margin: 0 1rem;
   }
 }
-.profile {
+main {
+  grid-area: main;
   height: 100%;
   width: 100%;
 }
 
-.card-box {
+section {
   height: 100%;
   width: 100%;
-  overflow-y: scroll;
 }
 
 .Landing {
@@ -287,40 +309,73 @@ nav {
   grid-area: title;
 }
 
+.card-box {
+  height: 100%;
+  width: 100%;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+}
+
 .game-card {
-  display: grid;
-  grid-template-columns: 20% 50% 30%;
-  grid-template-areas: "img content form";
+  width: 100%;
   align-items: center;
   font-size: 1.5rem;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   border: 3px dashed #fb8500;
   border-radius: 3px;
-  padding: 5px;
+  padding: 1rem;
   margin-top: 1rem;
 }
-.game-card img {
+
+.card-img {
   max-width: 80%;
-  grid-area: img;
-}
-.game-card .card-content {
-  grid-area: content;
-}
-.game-card form {
-  grid-area: form;
-}
-@media screen and (min-width: 992px) {
-  .game-card {
-    flex-direction: row;
-  }
-  .game-card img {
-    max-width: 20%;
-  }
+  margin-right: 1rem;
 }
 
-::-webkit-scrollbar {
-  display: none;
+.game-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media screen and (min-width: 992px) {
+  .card-box {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .game-card {
+    width: 32%;
+    max-height: 550px;
+    margin: 1rem 0.6% 0;
+  }
+
+  .card-img {
+    max-width: 80%;
+  }
+}
+.login {
+  display: grid;
+  grid-template-rows: 30% 70%;
+  place-items: center;
+}
+
+.login-form {
+  border: 5px dashed #fb8500;
+  border-radius: 5px;
+  padding: 1rem;
+  align-self: flex-start;
+}
+.login-form .input-with-label {
+  margin: 0.5rem 0;
+  align-items: center;
+}
+.login-form input {
+  background-color: #e9f3f8;
+  border-radius: 0.25rem;
 }
 
 /*# sourceMappingURL=App.css.map */

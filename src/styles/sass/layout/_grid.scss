@@ -13,12 +13,6 @@
   ;
 }
 
-main {
-  grid-area: main;
-  height: 100%;
-  width: 100%;
-}
-
 @media screen and (min-width: $large-breakpoint) {
   #root {
     grid-template-rows: [screen-top] 7% [row1-end] 93% [screen-bottom];

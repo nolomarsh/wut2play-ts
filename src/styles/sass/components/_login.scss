@@ -1,0 +1,25 @@
+@use '../utils/vars' as *;
+
+.login{
+  display: grid;
+  grid-template-rows: 30% 70%;
+  place-items: center;
+}
+
+.login-form {
+  border: 5px dashed $primary-accent;
+  border-radius: 5px;
+  padding: 1rem;
+  align-self: flex-start;
+
+
+  .input-with-label{
+    margin: .5rem 0;
+    align-items: center;
+  }
+
+  input {
+    background-color: $white;
+    border-radius: .25rem;
+  }
+}

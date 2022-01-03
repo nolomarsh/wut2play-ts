@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { BoardGameAtlasGameData, GameEntry } from '../utils/types'
 
 import BasicForm from '../components/BasicForm'
@@ -19,31 +19,17 @@ const initialFoundGamesState: GameEntry[] = [{
 
 const GameLookup = () => {
 
+  const [searchParams, setSearchParams] = useState({name:''})
   const [foundGames, setFoundGames] = useState(initialFoundGamesState)
   const [showNoneFound, setShowNoneFound] = useState(false)
   const [noAccessories] = useState(true)
   const [noExpansions] = useState(true)
 
-  const formFields = [
-    {label: 'name'},
-    {
-      legend: 'Number of Players',
-      inputs: [
-        {label: 'min', name: 'min_players', type: 'number'},
-        {label: 'max', name: 'max_players', type: 'number'}
-        ] 
-    },
-    {
-      legend: 'Playtime',
-      inputs: [
-        {label: 'min', name: 'min_playtime', type: 'number'},
-        {label: 'max', name: 'max_playtime', type: 'number'}
-      ],
-      includeSubmit: true
-    }
-  ] 
+  const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchParams({...searchParams, [e.target.name]: e.target.value})
+  }
 
-  const handleSearchSubmit = (searchParams: {}) => {
+  const handleSearchSubmit = () => {
     let searchUrl = `https://api.boardgameatlas.com/api/search?client_id=PTozna3dDh&fuzzy_match=true&limit=50`
     for(let [key, value] of Object.entries(searchParams)){
       if (value) {
@@ -86,17 +72,21 @@ const GameLookup = () => {
   }
 
   return (
-    <section className='GameLookup'>
-      <BasicForm 
-        onSubmit={handleSearchSubmit}
-        fields={formFields}
-      />
-      {(foundGames.length > 1 || foundGames[0].name !== '') && foundGames.map((game) => {
-       return <GameCard game={game} key={game.id}/>
-      })}
+    <section className='game-lookup'>
+      <h1>Find a Game!</h1>
+      <div className='input-with-label'>
+        <label htmlFor='name'>Name: </label>
+        <input id='name' name='name' onChange={inputChangeHandler}/>
+        <button onClick={handleSearchSubmit}>Search</button>
+      </div>
       {showNoneFound && 
-        <p>No matching games were found! Sorry!</p>
+        <h2>No matching games were found! Sorry!</h2>
       }
+      <div className='card-box'>
+        {(foundGames.length > 1 || foundGames[0].name !== '') && foundGames.map((game) => {
+        return <GameCard game={game} key={game.id}/>
+        })}
+      </div>      
     </section>
   )
 }

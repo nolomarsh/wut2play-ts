@@ -1,42 +1,52 @@
 @use '../utils/vars' as *;
 
+.card-box {
+  height: 100%;
+  width: 100%;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+}
+
 .game-card{
-  display: grid;
-  grid-template-columns: 20% 50% 30%;
-  grid-template-areas: 'img content form';
+  width: 100%;
   align-items: center;
   font-size: 1.5rem;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   border: 3px dashed $primary-accent;
   border-radius: 3px;
-  padding: 5px;
-
+  padding: 1rem;
   margin-top: 1rem;
-  
-  img {
-    max-width: 80%;
-    grid-area: img;
-  }
-
-  .card-content {
-    grid-area: content;
-  }
-
-  form {
-    grid-area: form;
-  }
-
-  @media screen and (min-width: $large-breakpoint) {
-    flex-direction: row;
-
-    img {
-      max-width: 20%;
-    }
-  }
 }
 
-::-webkit-scrollbar {
-  display: none;
+.card-img {
+  max-width: 80%;
+  margin-right: 1rem;
+}
+
+.game-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media screen and (min-width: $large-breakpoint) {
+  .card-box {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  
+  .game-card{
+    // flex-direction: row;
+    width: 32%;
+    max-height: 550px;
+    margin: 1rem .6% 0;
+  }
+
+  .card-img {
+    max-width: 80%;
+  }
 }
 
