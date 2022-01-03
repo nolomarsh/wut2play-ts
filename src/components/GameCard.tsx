@@ -54,7 +54,7 @@ const GameCard: React.FC<GameCardProps> = (props: GameCardProps) => {
   }
 
   return (
-    <div className='GameCard'>
+    <div className='game-card'>
       <img className='card-img' src={image_url} alt={name}/>
       <div className='card-content'>
         <p>{name}</p>

@@ -8,7 +8,12 @@
 body{
   background-color: $primary-background;
   color: $primary-font-color;
-  font-family: 'Playful World';
+  font-family: $primary-font;
+  // padding: 5vh 0;
+
+  @media screen and (min-width: $large-breakpoint) {
+    padding: 0;
+  }
 }
 
 a {
@@ -19,6 +24,9 @@ a {
 
 section {
   padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .btnBox {

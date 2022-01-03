@@ -5,27 +5,7 @@
 
 @use 'layout/grid';
 @use 'layout/navbar'; 
+@use 'layout/profile';
 
 @use 'components/picker';
-
-// Component/Route specific styling
-
-.GameCard{
-  display: grid;
-  grid-template-columns: 20% 50% 30%;
-  grid-template-areas: 'img content form';
-  align-items: center;
-  
-  img {
-    max-width: 80%;
-    grid-area: img;
-  }
-
-  .card-content {
-    grid-area: content;
-  }
-
-  form {
-    grid-area: form;
-  }
-}
+@use 'components/game-card';

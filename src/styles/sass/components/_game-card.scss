@@ -1,0 +1,42 @@
+@use '../utils/vars' as *;
+
+.game-card{
+  display: grid;
+  grid-template-columns: 20% 50% 30%;
+  grid-template-areas: 'img content form';
+  align-items: center;
+  font-size: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  border: 3px dashed $primary-accent;
+  border-radius: 3px;
+  padding: 5px;
+
+  margin-top: 1rem;
+  
+  img {
+    max-width: 80%;
+    grid-area: img;
+  }
+
+  .card-content {
+    grid-area: content;
+  }
+
+  form {
+    grid-area: form;
+  }
+
+  @media screen and (min-width: $large-breakpoint) {
+    flex-direction: row;
+
+    img {
+      max-width: 20%;
+    }
+  }
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+

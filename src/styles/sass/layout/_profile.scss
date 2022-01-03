@@ -1,0 +1,12 @@
+@use '../utils/vars' as *;
+
+.profile {
+  height: 100%;
+  width: 100%;
+}
+
+.card-box {
+  height: 100%;
+  width: 100%;
+  overflow-y: scroll;
+}

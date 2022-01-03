@@ -3,6 +3,7 @@ import axios from 'axios'
 import { initialGame } from '../../reducers/myGamesSlice'
 import { GameEntry, User } from '../../utils/types'
 import { apiUrl } from '../../utils/url'
+import { isInitial } from '../../utils/functions'
 
 type PickerProps = {
   pooledUsers: User[]
@@ -44,11 +45,14 @@ const PickerPage = ({pooledUsers, currentUser, queryStats}: PickerProps) => {
 
   return (
     <>
-      <p>{pickedGame.name}</p>
+      <div id='picked-card'>
+        <img src={pickedGame.image_url}/>
+        <p>{pickedGame.name}</p>
+      </div>
       {showNoneFound && 
         <p>You don't have any games that meet those requirements! Sorry!</p>
       }
-      <button onClick={gamePool[0].id < 1 ? getGamePool : ()=>pickRandomGame(gamePool)}>Pick game</button>
+      <button onClick={isInitial(gamePool) ? getGamePool : ()=>pickRandomGame(gamePool)}>{isInitial(gamePool) ? 'Pick game' : 'Roll again'}</button>
     </>
   )
 }

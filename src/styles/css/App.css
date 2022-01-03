@@ -6,6 +6,22 @@
   font-style: normal;
   font-display: swap;
 }
+@font-face {
+  font-family: "Playful Mono";
+  src: url("../fonts/PlayfulMono/PlayfulMonoFreePersonal-Reg.eot");
+  src: url("../fonts/PlayfulMono/PlayfulMonoFreePersonal-Reg.eot?#iefix") format("embedded-opentype"), url("../fonts/PlayfulMono/PlayfulMonoFreePersonal-Reg.woff2") format("woff2"), url("../fonts/PlayfulMono/PlayfulMonoFreePersonal-Reg.woff") format("woff"), url("../fonts/PlayfulMono/PlayfulMonoFreePersonal-Reg.ttf") format("truetype"), url("../fonts/PlayfulMono/PlayfulMonoFreePersonal-Reg.svg#PlayfulMonoFreePersonal-Reg") format("svg");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Fun Time";
+  src: url("../fonts/Funtime/funtime.eot");
+  src: url("../fonts/Funtime/funtime.eot?#iefix") format("embedded-opentype"), url("../fonts/Funtime/funtime.woff2") format("woff2"), url("../fonts/Funtime/funtime.woff") format("woff"), url("../fonts/Funtime/funtime.ttf") format("truetype"), url("../fonts/Funtime/funtime.svg#funtime") format("svg");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -62,7 +78,12 @@ table {
 body {
   background-color: #023047;
   color: #ffb703;
-  font-family: "Playful World";
+  font-family: "Fun Time";
+}
+@media screen and (min-width: 992px) {
+  body {
+    padding: 0;
+  }
 }
 
 a {
@@ -73,6 +94,9 @@ a {
 
 section {
   padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .btnBox {
@@ -86,6 +110,7 @@ section {
 #root {
   width: 100vw;
   height: 100vh;
+  max-height: -webkit-fill-available;
   display: grid;
   grid-template-rows: [screen-top] 90% [row1-end] 10% [screen-bottom];
   grid-template-columns: [screen-left] 100% [screen-right];
@@ -94,11 +119,13 @@ section {
 
 main {
   grid-area: main;
+  height: 100%;
+  width: 100%;
 }
 
 @media screen and (min-width: 992px) {
   #root {
-    grid-template-rows: [screen-top] 10% [row1-end] 90% [screen-bottom];
+    grid-template-rows: [screen-top] 7% [row1-end] 93% [screen-bottom];
     grid-template-areas: "navBar" "main";
   }
 }
@@ -111,7 +138,7 @@ nav {
 }
 
 .navBtn {
-  margin: 0.5rem 0;
+  margin-bottom: 1rem;
   font-size: 2rem;
 }
 
@@ -119,7 +146,22 @@ nav {
   nav {
     justify-content: flex-start;
   }
+
+  .navBtn {
+    margin: 0 1rem;
+  }
 }
+.profile {
+  height: 100%;
+  width: 100%;
+}
+
+.card-box {
+  height: 100%;
+  width: 100%;
+  overflow-y: scroll;
+}
+
 .Landing {
   width: 100%;
   height: 100%;
@@ -156,12 +198,15 @@ nav {
 }
 .picker button {
   font-size: 2rem;
-  padding: 0.25rem 0.5rem;
-  border-radius: 10px;
+  padding: 0 0.5rem 0.5rem 0.5rem;
+  border-radius: 1.25rem;
   background-color: #ffb703;
   border: 1px solid #fb8500;
   color: #023047;
-  font-family: "Playful World";
+  font-family: "Fun Time";
+}
+.picker img {
+  width: 50%;
 }
 
 .user-list {
@@ -231,21 +276,51 @@ nav {
   font-size: 1.5rem;
 }
 
-.GameCard {
+.picker-page-4 {
+  grid-template-rows: 60% 20% 10% 10%;
+}
+
+#picked-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  grid-area: title;
+}
+
+.game-card {
   display: grid;
   grid-template-columns: 20% 50% 30%;
   grid-template-areas: "img content form";
   align-items: center;
+  font-size: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  border: 3px dashed #fb8500;
+  border-radius: 3px;
+  padding: 5px;
+  margin-top: 1rem;
 }
-.GameCard img {
+.game-card img {
   max-width: 80%;
   grid-area: img;
 }
-.GameCard .card-content {
+.game-card .card-content {
   grid-area: content;
 }
-.GameCard form {
+.game-card form {
   grid-area: form;
+}
+@media screen and (min-width: 992px) {
+  .game-card {
+    flex-direction: row;
+  }
+  .game-card img {
+    max-width: 20%;
+  }
+}
+
+::-webkit-scrollbar {
+  display: none;
 }
 
 /*# sourceMappingURL=App.css.map */

@@ -9,12 +9,15 @@ nav {
 }
 
 .navBtn {
-  margin: .5rem 0;
+  margin-bottom: 1rem;
   font-size: 2rem;
 }
 
 @media screen and (min-width: $large-breakpoint) {
   nav {
     justify-content: flex-start;
+  }
+  .navBtn {
+    margin: 0 1rem;
   }
 }

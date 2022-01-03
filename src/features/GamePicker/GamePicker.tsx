@@ -57,6 +57,12 @@ const GamePicker = () => {
       }
     }
   }
+
+  const resetPicker = () => {
+    setStepNumber(0)
+    setQueryStats({numPlayers: 1, playtime: 0})
+    setPooledUsers([initialUser])
+  }
   
   return(
     <div className={`picker picker-page-${stepNumber}`}>
@@ -110,6 +116,9 @@ const GamePicker = () => {
         }
         {stepNumber === 3 &&
           <button onClick={nextStep}>{queryStats.playtime === 0 ? 'No Preference!' : `Let's go!`}</button>
+        }
+        {stepNumber === 4 &&
+          <button onClick={resetPicker}>Reset</button>
         }
       </div>
     </div>
