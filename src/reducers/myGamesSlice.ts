@@ -38,7 +38,13 @@ export const fetchGames = createAsyncThunk(
       .get(url)
       .then(response => {
         // console.log('fetch data: ', response.data)
-        return response.data
+        const foundGames = response.data
+        for (let game of foundGames) {
+          if (game.notes === 'undefined'){
+            game.notes = ''
+          }
+        }
+        return foundGames
       })
   }
 )

@@ -18,10 +18,10 @@ type AddGameProps = {
  */
 const AddGame: React.FC<AddGameProps> = ({game, toggler}) => {
 
-  let name, image_url, min_players, max_players, min_playtime, max_playtime
+  let name, image_url, min_players, max_players, min_playtime, max_playtime, notes
   
   if (game) {
-    ({ name, image_url, min_players, max_players, min_playtime, max_playtime } = game)
+    ({ name, image_url, min_players, max_players, min_playtime, max_playtime, notes } = game)
   }
 
   const currentUser = useAppSelector(selectCurrentUser)

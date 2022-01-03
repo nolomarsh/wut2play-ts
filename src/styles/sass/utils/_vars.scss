@@ -1,4 +1,6 @@
-$white: #dff1fa;
+// @use 'fonts';
+
+$white: #e9f3f8;
 $light-blue: #8ecae6;
 $medium-blue: #219ebc;
 $navy: #023047;
@@ -19,3 +21,6 @@ $small-breakpoint: 600px;
 $medium-breakpoint: 768px;
 $large-breakpoint: 992px;
 $xl-breakpoint: 1200px;
+
+// Export fonts
+$primary-font: 'Fun Time';
