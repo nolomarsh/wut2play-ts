@@ -51,7 +51,7 @@
   }
 
   img {
-    width: 50%;
+    max-height: 100%;
   }
 }
 
@@ -139,5 +139,10 @@
   display:flex;
   flex-direction: column;
   align-items: center;
+  height: 85%;
   grid-area: title;
+
+  p{
+    font-size: 1.6rem;
+  }
 }
