@@ -376,9 +376,10 @@ section {
   margin: 0.5rem 0;
   align-items: center;
 }
-.login-form input {
+.login-form .form-button {
   background-color: #e9f3f8;
   border-radius: 0.25rem;
+  margin-bottom: 5px;
 }
 
 /*# sourceMappingURL=App.css.map */
