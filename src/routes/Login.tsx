@@ -44,8 +44,8 @@ const Login: React.FC<loginProps> = ({toggleSignup}) => {
           <label htmlFor='password'>Password: </label>
           <input type='password' id='password' name='password' onChange={handleChange}/>
         </div>
-        <input type='submit' value='Log In'/>
-        <button onClick={toggleSignup}>Sign Up</button>
+        <input className='form-button' type='submit' value='Log In'/>
+        <button className='form-button' onClick={toggleSignup}>Sign Up</button>
       </form>
       {currentUser.message &&
         <p>{currentUser.message}</p>

@@ -47,6 +47,7 @@ const SignUp: React.FC<signupProps> = ({toggleSignup}) => {
         password: password,
         email: email
       }
+      toggleSignup()
       dispatch(signUp(dataToSend)) 
     } 
   }
@@ -72,8 +73,8 @@ const SignUp: React.FC<signupProps> = ({toggleSignup}) => {
           <label htmlFor='email'>Email: </label>
           <input id='email' name='email' onChange={changeHandler}/>
         </div>
-        <input type='submit' value='Sign Up'/>
-        <button onClick={toggleSignup}>Log In</button>
+        <input className='form-button' type='submit' value='Sign Up'/>
+        <button className='form-button' onClick={toggleSignup}>Log In</button>
       </form>
       {currentUser.message &&
         <p>{currentUser.message}</p>
