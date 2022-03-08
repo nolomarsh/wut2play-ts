@@ -6,12 +6,18 @@ import { useAppDispatch, useAppSelector } from './utils/hooks'
 import { selectCurrentUser, setCurrentUser } from './reducers/currentUserSlice'
 import { isInitial } from './utils/functions'
 import Login from './routes/Login'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { fetchGames } from './reducers/myGamesSlice'
+import SignUp from './routes/SignUp'
 
 const App = () => {
   const currentUser = useAppSelector(selectCurrentUser)
   const dispatch = useAppDispatch()
+  const [showSignup, setShowSignup] = useState(false)
+
+  const toggleSignup = () => {
+    setShowSignup(!showSignup)
+  }
 
   useEffect(() => {
     const storedData = localStorage.getItem('currentUser') || ''
@@ -26,7 +32,11 @@ const App = () => {
     <>
       {isInitial(currentUser) ?
         <main>
-          <Login />
+          {showSignup ?
+            <SignUp toggleSignup={toggleSignup}/>
+            :
+            <Login toggleSignup={toggleSignup}/>
+          }
         </main>
         :
         <>

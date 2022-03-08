@@ -3,7 +3,9 @@ import BasicForm from '../components/BasicForm'
 import { attemptLogin, selectCurrentUser } from '../reducers/currentUserSlice'
 import { useAppDispatch, useAppSelector } from '../utils/hooks'
 
-const Login = () => {
+type loginProps = {toggleSignup: ()=>void}
+
+const Login: React.FC<loginProps> = ({toggleSignup}) => {
   const currentUser = useAppSelector(selectCurrentUser)
   const dispatch = useAppDispatch()
 
@@ -43,6 +45,7 @@ const Login = () => {
           <input type='password' id='password' name='password' onChange={handleChange}/>
         </div>
         <input type='submit' value='Log In'/>
+        <button onClick={toggleSignup}>Sign Up</button>
       </form>
       {currentUser.message &&
         <p>{currentUser.message}</p>
