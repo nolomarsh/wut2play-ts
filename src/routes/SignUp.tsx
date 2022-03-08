@@ -5,7 +5,9 @@ import { useAppDispatch, useAppSelector } from '../utils/hooks'
 
 import { selectCurrentUser, signUp, setMessage } from '../reducers/currentUserSlice'
 
-const SignUp = () => {
+type signupProps = {toggleSignup: ()=>void}
+
+const SignUp: React.FC<signupProps> = ({toggleSignup}) => {
 
   const dispatch = useAppDispatch()
   const currentUser = useAppSelector(selectCurrentUser)
@@ -50,14 +52,32 @@ const SignUp = () => {
   }
 
   return (
-    <section className='SignUp' onSubmit={signUpSubmitHandler}>
-      <form>
-        {inputs.map((input, index) => {
-          return <FormInput changeHandler={changeHandler} inputInfo={input} key={index}/>
-        })}
+    <section className='login'>
+      <h1 className='title'>Wut2Play</h1>
+      <form className='login-form' onSubmit={signUpSubmitHandler}>
+        <h1>Sign Up</h1>
+        <div className='input-with-label'>
+          <label htmlFor='username'>Username: </label>
+          <input id='username' name='username' onChange={changeHandler}/>
+        </div>
+        <div className='input-with-label'>
+          <label htmlFor='password'>Password: </label>
+          <input type='password' id='password' name='password' onChange={changeHandler}/>
+        </div>
+        <div className='input-with-label'>
+          <label htmlFor='confirm_password'>Confirm Password: </label>
+          <input type='password' id='confirm_password' name='confirm_password' onChange={changeHandler}/>
+        </div>
+        <div className='input-with-label'>
+          <label htmlFor='email'>Email: </label>
+          <input id='email' name='email' onChange={changeHandler}/>
+        </div>
         <input type='submit' value='Sign Up'/>
+        <button onClick={toggleSignup}>Log In</button>
       </form>
-      <p>{currentUser.message}</p>
+      {currentUser.message &&
+        <p>{currentUser.message}</p>
+      }
     </section>
   )
 }

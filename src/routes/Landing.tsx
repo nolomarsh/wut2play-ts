@@ -9,15 +9,15 @@ const Landing = () => {
 
   return (
     <section className='Landing'>
-      {currentUser.id === -1 ?
+      {/* {currentUser.id === -1 ?
       <>
         <Login/>
       </>
-      :
+      : */}
       <>
         <GamePicker />
       </>
-      }
+      {/* } */}
     </section>
   )
 }

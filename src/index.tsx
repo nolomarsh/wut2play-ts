@@ -22,8 +22,8 @@ ReactDOM.render(
         <Routes>
           <Route path='/' element={<App />}>
             <Route index element={<Landing />}/>
-            <Route path='login' element ={<Login />}/>
-            <Route path='signup' element={<SignUp />}/>
+            {/* <Route path='login' element ={<Login />}/>
+            <Route path='signup' element={<SignUp />}/> */}
             <Route path='profile' element={<Profile />}>
               <Route path='add-game' element={<AddGame />} />
             </Route>
